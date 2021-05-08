@@ -70,7 +70,8 @@ cp -r maps/base/base.building.yaml maps/$NEW_SCENE/$NEW_SCENE.building.yaml
 cp -r maps/base/base.png maps/$NEW_SCENE/$NEW_SCENE.png
 sed -i "s/base/$NEW_SCENE/g" maps/$NEW_SCENE/$NEW_SCENE.building.yaml
 
-# This is a test file we will use to check  a specific scenario
+# This is a test file we will use to check a specific testing scenario
+# We send two LoopRequests between two corresponding pairs for 10 loops each
 mkdir -p launch/tests/$NEW_SCENE
 cp launch/tests/base/base_basic_test.launch.xml launch/tests/$NEW_SCENE/$NEW_SCENE\_basic_test.launch.xml
 
@@ -80,7 +81,7 @@ sed -i "s/deliveryRobot/corridorRobot/g" launch/include/adapters/corridorRobot_a
 ```
 
 ## Modify Building File
-Now we can modify the building file. We will delete a graph, then add a new robot `corridorRobot1` to the fleet `corridotRobot`.
+Now we can modify the building file. We will delete a graph, then add a new robot `corridorRobot1` to the fleet `corridotRobot`, and add a door
 
 Open the traffic editor:
 ```
@@ -121,7 +122,7 @@ Now we will reannotate Graph 1.
 ```
 
 ### Add corridorRobot to Graph 1
-We will add a simulation robot to Graph 1 by annotating the traffic lanes
+We will add a simulation robot to Graph 1 by annotating the traffic lanes.
 ```
 # Select one of the vertices on Graph 1. This will be the vertice where we spawn the simulation DeliveryRobot
 # Click on "add property", select spawn_robot_type and fill in "DeliveryRobot". This is the name of the gazebo model as spelled in the sdf file.
@@ -130,6 +131,15 @@ We will add a simulation robot to Graph 1 by annotating the traffic lanes
 # Click on "add property", select spawn_robot_type and fill in "corridorRobot1". The name must be precisely [fleet_name][identifier], so that the simulation code can assign this robot to a corresponding fleet. In this case, this is robot "corridorRobot1" of fleet "corridotRobot".
 # For one of these graphs, click "add property", select the drop down, and click is_charger.
 # For the is_charger row that appeared, change to "true"
+```
+
+### Add Door
+We will now add a door to the bottom overlapping lanes of the `narrow_corridor` world.
+```
+# At the top pane, click the iron with a door icon
+# Click two points vertically down the middle of Graph 0. A Door annotation should appear.
+# On the bottom right, change "type" to "double_sliding".
+# On the bottom right, change "name" to "door1".
 ```
 
 ## Modify Adapters
@@ -181,4 +191,10 @@ rm -rf build/rmf_gym_worlds
 rm -rf install/rmf_gym_worlds
 ros2 launch rmf_gym_worlds $NEW_SCENE.launch.xml
 ros2 launch rmf_gym_worlds $NEW_SCENE\_basic_test.launch.xml
+```
+
+# Hardware Testing
+You can also modify the scenarios above for hardware. You can do that by removing the fleet adapter groups ( such as those that we used for the `corridorRobot` ), and then by launching your own hardware robots fleet adapter instead. Remember to launch without using sim time:
+```
+ros2 launch rmf_gym_worlds base.launch.xml use_sim_time:=false
 ```
