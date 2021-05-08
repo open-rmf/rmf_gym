@@ -14,6 +14,13 @@ It is easy to tweak the gym worlds to include your hardware for testing, by phys
 `rmf_gym_tools` contain scripts and automation that help with testing RMF. These can be run standalone or put into [test launch files](/rmf_gym_worlds/launch/tests/base).
 
 ## Examples
+More to come!
+
+### base
 ![base.gif](/docs/base.gif)
+
+### narrow_corridor
 ![narrow_corridor.gif](/docs/narrow_corridor.gif)
+
+### simple_lift
 ![simple_lift.gif](/docs/simple_lift.gif)
