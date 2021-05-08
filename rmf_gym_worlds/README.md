@@ -25,8 +25,7 @@ maps:                                       Contains all building files and floo
 
 # The base world
 The `Base` world is a template world `10m X 20m` meant to standardize the dimensions of all testing scenarios. The motivation is that
-these test worlds can be used to support hardware testing. By observing the simulation test behavior, we can replace
-simulation robots with real robots and fleet adapters.  
+these test worlds can be used to support hardware testing. We can modify the base world template and even add hardware in the loop.
 
 By standardizing the physical space for each test world, it is easier to determine and arrange for hardware tests. 
 
@@ -35,7 +34,7 @@ We can already try out the base world and a basic test case.
 
 ```
 ros2 launch rmf_gym_worlds base.launch.xml
-ros2 launch rmf_gym_worlds base_basic_test.launch.xml
+ros2 launch rmf_gym_worlds base_basic_test.launch.xml 
 ```
 
 We should see the two robots looping in a cross-shape. When 10 Loops have been completed by each robot, the test process will terminate with a `0` exit status.
@@ -45,10 +44,15 @@ echo $?       # returns 0
 
 If the test case fails, the command will return 1. This happens when a timeout is reached. You can use this in our testing infrastructure to carry out contingency measures.
 
+We can also run random loop tasks:
+```
+ros2 launch rmf_gym_worlds base_random_loops_test.launch.xml
+```
+
 # Creating a new Test World
 We will now observe how we can modify the base world in order to create a new test world, the `narrow_corridor.` 
 The final files are provided for you, but following the below instructions will reproduce the `narrow_corridor` world step by step.
-You can also use the provided script to carry out all the following steps automatically:
+You can also use [this script](./generate_new_world.bash) to carry out all the following steps automatically:
 ```
 NEW_SCENE=narrow_corridor bash generate_new_world.bash
 ```
