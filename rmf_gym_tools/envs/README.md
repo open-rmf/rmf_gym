@@ -30,7 +30,7 @@ packer build -only=vagrant.rmf rmf.pkr.hcl
 
 Builds might take a long time, as the `pkr.hcl` file is configured to build with minimal resources. If you have more RAM, you can replace the build command variable:
 ```
-packer build -var='"colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release"' rmf.pkr.hcl
+packer build -var='colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release' rmf.pkr.hcl
 ```
 
 ### Use Pre-Built Machine Images
