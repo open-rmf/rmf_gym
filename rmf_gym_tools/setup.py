@@ -23,6 +23,8 @@ setup(
     entry_points={
         'console_scripts': [
           'check_tasks_complete = rmf_gym_tools.check_tasks_complete:main',
+          'extract_waypoints = rmf_gym_tools.extract_waypoints:main',
+          'random_tasks = rmf_gym_tools.random_tasks:main',
         ],
     },
 )

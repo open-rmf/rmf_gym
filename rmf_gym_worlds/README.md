@@ -6,7 +6,7 @@ In addition, by documenting how to create new test environments hands-on, these 
 The repository structure is:
 ```
 launch:                                     Contains all launch files
-  include:                                  Contains files that are can be common to many test world test_worlds
+  include:                                  Contains files that are common to many test world test_worlds
     adapters:                               Contains common fleet adapters for all worlds
     rviz:                                   Contains common rviz configurations for all worlds
   tests:                                    Contains all test launch files
