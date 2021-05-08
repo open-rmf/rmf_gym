@@ -28,11 +28,10 @@ packer build -only=docker.rmf rmf.pkr.hcl
 packer build -only=vagrant.rmf rmf.pkr.hcl
 ```
 
-Builds might take a long time, as the `pkr.hcl` file is configured to build with minimal resources. If you have more RAM, you can replace the build command on line 73:
+Builds might take a long time, as the `pkr.hcl` file is configured to build with minimal resources. If you have more RAM, you can replace the build command variable:
 ```
-". /opt/ros/${var.ros2_version}/setup.sh && MAKEFLAGS=\"-j1 -l1\" colcon build --executor sequential --cmake-args -DCMAKE_BUILD_TYPE=Release"
+packer build -var='"colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release"' rmf.pkr.hcl
 ```
-by removing the `MAKEFLAGS` and `--exeutor sequential` options.
 
 ### Use Pre-Built Machine Images
 You can also choose to pull the pre-built images we upload to `Docker Hub` and `Vagrant Cloud`:
