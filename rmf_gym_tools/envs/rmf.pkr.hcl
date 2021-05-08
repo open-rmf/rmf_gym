@@ -16,6 +16,11 @@ variable "ros2_version" {
   default = "foxy"
 }
 
+variable "build_command" {
+  type    = string
+  default = "MAKEFLAGS=\"-j1 -l1\" colcon build --executor sequential --cmake-args -DCMAKE_BUILD_TYPE=Release"
+}
+
 source "docker" "rmf" {
   image  = "ubuntu:focal"
   commit = true
@@ -70,7 +75,7 @@ build {
       "wget https://raw.githubusercontent.com/open-rmf/rmf/main/rmf.repos",
       "vcs import src < rmf.repos",
       "rosdep install --from-paths src --ignore-src --rosdistro foxy -yr",
-      ". /opt/ros/${var.ros2_version}/setup.sh && MAKEFLAGS=\"-j1 -l1\" colcon build --executor sequential --cmake-args -DCMAKE_BUILD_TYPE=Release"
+      ". /opt/ros/${var.ros2_version}/setup.sh && ${var.build_command}"
     ]
     execute_command = "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'"
   }
