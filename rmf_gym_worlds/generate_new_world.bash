@@ -26,4 +26,7 @@ sed -i "s/base/$NEW_SCENE/g" $script_path/maps/$NEW_SCENE/$NEW_SCENE.building.ya
 # We send two LoopRequests between two corresponding pairs for 10 loops each
 mkdir -p $script_path/launch/tests/$NEW_SCENE
 cp $script_path/launch/tests/base/base_basic_test.launch.xml $script_path/launch/tests/$NEW_SCENE/$NEW_SCENE\_basic_test.launch.xml
+# This test file will generate a list of waypoints of graph 0 of a building.yaml file, and randomly pick waypoints to Loop to
+cp $script_path/launch/tests/base/base_random_loops_test.launch.xml $script_path/launch/tests/$NEW_SCENE/$NEW_SCENE\_random_loops_test.launch.xml
+sed -i "s/base/$NEW_SCENE/g" $script_path/launch/tests/$NEW_SCENE/$NEW_SCENE\_random_loops_test.launch.xml
 

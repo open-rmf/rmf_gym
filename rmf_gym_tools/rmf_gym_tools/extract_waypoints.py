@@ -18,11 +18,15 @@ import yaml
 import sys
 import argparse
 import collections
+from pathlib import Path
+
 
 def main(argv=sys.argv):
   parser = argparse.ArgumentParser()
   parser.add_argument("--building_path", required=True, type=str,
                       help='Path to building.yaml file')
+  parser.add_argument("--output_path", required=True, type=str,
+                      help='Path to output folder')
 
   parsed_args = parser.parse_args(argv[1:])
   with open(parsed_args.building_path) as config_file:
@@ -52,8 +56,10 @@ def main(argv=sys.argv):
     except KeyError:
       pass
 
-    with open(f'{graph_index}.yml', 'w') as output_file:
+    Path(parsed_args.output_path).mkdir(parents=True, exist_ok=True)
+    with open(f'{parsed_args.output_path}/{graph_index}.yml', 'w') as output_file:
       yaml.dump(list(waypoint_set), output_file)
+
 
 if __name__ == '__main__':
   main(sys.argv)

@@ -16,7 +16,8 @@ ros2 run rmf_gym_tools check_tasks_complete --task_check_period 10.0 --task_chec
 ## extract_waypoints
 Given a path to a building.yaml file, generate a list of waypoint names for each graph that was annotated. 
 ```
-ros2 run rmf_gym_tools extract_waypoints --building_path rmf_gym_worlds/maps/base/base.building.yaml
+# Extract waypoint names to current folder
+ros2 run rmf_gym_tools extract_waypoints --building_path rmf_gym_worlds/maps/base/base.building.yaml --output_path .
 ```
 
 ## random_tasks

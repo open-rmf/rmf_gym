@@ -1,0 +1,6 @@
+<?xml version='1.0' ?>
+<launch>
+  <executable cmd="gz physics -u 0" output="both"/>
+  <executable cmd="ros2 run rmf_gym_tools extract_waypoints --building_path $(find-pkg-share rmf_gym_worlds)/narrow_corridor/narrow_corridor.building.yaml --output_path /tmp/narrow_corridor" output="both"/>
+  <executable cmd="ros2 run rmf_gym_tools random_tasks --task_type loop --task_config_path /tmp/narrow_corridor/0.yml --task_count 10 --task_check_period 5.0 --task_check_timeout 300.0 --use_sim_time" output="both"/>
+</launch>
