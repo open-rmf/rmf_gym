@@ -1,0 +1,64 @@
+crowd_sim:
+  agent_groups:
+    - {agents_name: [tinyRobot1, deliveryRobot1], agents_number: 2, group_id: 0, profile_selector: external_agent, state_selector: external_static, x: 0, y: 0}
+  agent_profiles:
+    - {ORCA_tau: 1, ORCA_tauObst: 0.4, class: 1, max_accel: 0, max_angle_vel: 0, max_neighbors: 10, max_speed: 0, name: external_agent, neighbor_dist: 5, obstacle_set: 1, pref_speed: 0, r: 0.25}
+  enable: 0
+  goal_sets:
+    []
+  model_types:
+    []
+  obstacle_set: {class: 1, file_name: L1_navmesh.nav, type: nav_mesh}
+  states:
+    - {final: 1, goal_set: -1, name: external_static, navmesh_file_name: ""}
+  transitions:
+    []
+  update_time_step: 0.1
+levels:
+  L1:
+    drawing:
+      filename: base.png
+    elevation: 0
+    flattened_x_offset: 0
+    flattened_y_offset: 0
+    floors:
+      - parameters: {texture_name: [1, blue_linoleum], texture_rotation: [3, 0], texture_scale: [3, 1]}
+        vertices: [7, 4, 5, 6]
+    lanes:
+      - [8, 10, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 0], orientation: [1, ""]}]
+      - [10, 11, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 0], orientation: [1, ""]}]
+      - [11, 9, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 0], orientation: [1, ""]}]
+      - [12, 13, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 1], orientation: [1, ""]}]
+      - [13, 14, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 1], orientation: [1, ""]}]
+      - [14, 15, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 1], orientation: [1, ""]}]
+      - [15, 12, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 1], orientation: [1, ""]}]
+    layers:
+      {}
+    measurements:
+      - [1, 0, {distance: [3, 9.315]}]
+      - [2, 3, {distance: [3, 20.089]}]
+    vertices:
+      - [42.39, 1030.084, 0, ""]
+      - [39.481, 38.206, 0, ""]
+      - [225.64, 1623.466, 0, ""]
+      - [2624.464, 1625.219, 0, ""]
+      - [3004.423, 37.653, 0, ""]
+      - [3004.655, 1570.354, 0, ""]
+      - [125.203, 1571.918, 0, ""]
+      - [126.743, 38.206, 0, ""]
+      - [463.388, 768.545, 0, 0_a, {is_charger: [4, true], spawn_robot_name: [1, tinyRobot1], spawn_robot_type: [1, TinyRobot]}]
+      - [2661.654, 768.545, 0, 0_b]
+      - [1321.207, 768.545, 0, "", {is_parking_spot: [4, true]}]
+      - [1705.065, 768.545, 0, "", {is_parking_spot: [4, true]}]
+      - [439.745, 787.129, 0, ""]
+      - [2687.005, 787.129, 0, 1_b]
+      - [2687.005, 216.49, 0, ""]
+      - [427.979, 216.49, 0, 1_a, {is_charger: [4, true], spawn_robot_name: [1, corridorRobot1], spawn_robot_type: [1, DeliveryRobot]}]
+    walls:
+      - [7, 6, {alpha: [3, 1], texture_name: [1, default]}]
+      - [6, 5, {alpha: [3, 1], texture_name: [1, default]}]
+      - [5, 4, {alpha: [3, 1], texture_name: [1, default]}]
+      - [4, 7, {alpha: [3, 1], texture_name: [1, default]}]
+lifts:
+  {}
+name: building
