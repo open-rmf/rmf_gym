@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'rmf_gym'
+package_name = 'rmf_gym_tools'
 
 setup(
     name=package_name,
@@ -22,7 +22,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-          'check_tasks_complete = rmf_gym.check_tasks_complete:main',
+          'check_tasks_complete = rmf_gym_tools.check_tasks_complete:main',
         ],
     },
 )

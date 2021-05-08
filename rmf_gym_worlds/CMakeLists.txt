@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(rmf_gym)
+project(rmf_gym_worlds)
 
 find_package(ament_cmake REQUIRED)
 
@@ -9,14 +9,14 @@ install(DIRECTORY
   DESTINATION share/${PROJECT_NAME}
 )
 
-install(directory
+install(DIRECTORY
   maps/
-  destination share/${project_name}
+  DESTINATION share/${project_name}
 )
 
-install(directory
+install(DIRECTORY
   tests/
-  destination share/${project_name}
+  DESTINATION share/${project_name}
 )
 
 ament_package()
