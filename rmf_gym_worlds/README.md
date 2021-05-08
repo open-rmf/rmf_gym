@@ -49,6 +49,10 @@ If the test case fails, the command will return 1. This happens when a timeout i
 # Creating a new Test World
 We will now observe how we can modify the base world in order to create a new test world, the `narrow_corridor.` 
 The final files are provided for you, but following the below instructions will reproduce the `narrow_corridor` world step by step.
+You can also use the provided script to carry out all the following steps automatically:
+```
+NEW_SCENE=narrow_corridor bash generate_new_world.bash
+```
 
 ## Create Boilerplate Files
 We first copy and modify certain files. From the folder of `rmf_gym_worlds`:
