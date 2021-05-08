@@ -2,6 +2,9 @@
 
 Tools to help test RMF worlds.
 
+## envs
+This folder contains various options on how to quickly provision a machine to try out RMF. 
+
 ## check_tasks_complete
 This process wil loop indefinitely, and terminate once there are no more `active_tasks` when querying the RMF dispatcher.
 
