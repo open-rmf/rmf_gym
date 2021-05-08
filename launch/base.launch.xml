@@ -1,0 +1,23 @@
+<?xml version='1.0' ?>
+
+<launch>
+  <arg name="use_ignition" default="0"/>
+  <arg name="gazebo_version" default="11"/>
+  <arg name="use_sim_time" default="true"/>
+
+  <!-- Common launch -->
+  <include file="$(find-pkg-share rmf_gym)/common.launch.xml">
+    <arg name="use_sim_time" value="$(var use_sim_time)"/>
+    <arg name="viz_config_file" value ="$(find-pkg-share rmf_gym)/include/rviz/base.rviz"/>
+    <arg name="config_file" value="$(find-pkg-share rmf_gym)/base/base.building.yaml"/>
+  </include>
+
+  <!-- Simulation launch -->
+  <include file="$(find-pkg-share rmf_gym)/simulation.launch.xml">
+    <arg name="map_name" value="base" />
+    <arg name="map_package" value="rmf_gym" />
+    <arg name="use_ignition" value="$(var use_ignition)" />
+    <arg name="gazebo_version" value="$(var gazebo_version)" />
+  </include>
+
+</launch>
