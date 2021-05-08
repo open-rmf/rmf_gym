@@ -11,3 +11,7 @@ which also functions as tutorials on how RMF works.
 It is easy to tweak the gym worlds to include your hardware for testing, by physically running your robot alongside simulations in a physical `10m x 20m` space.
 
 `rmf_gym_tools` contain scripts and automation that help with testing RMF.
+
+![base.gif](/docs/base.gif)
+![narrow_corridor.gif](/docs/narrow_corridor.gif)
+![simple_lift.gif](/docs/simple_lift.gif)
