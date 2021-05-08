@@ -11,7 +11,7 @@ install(DIRECTORY
 
 install(DIRECTORY
   maps/
-  DESTINATION share/${project_name}
+  DESTINATION share/${PROJECT_NAME}
 )
 
 ament_package()
