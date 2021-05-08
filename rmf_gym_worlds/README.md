@@ -1,6 +1,5 @@
 # rmf_gym_worlds
-This repository aims to contain test worlds used to check that common multi-robot scenarios play out correctly.
-In addition, by documenting how to create new test environments hands-on, these also act as tutorials for RMF.
+This repository contains simulation test worlds to help check that common multi-robot scenarios play out correctly.
 
 # Overview
 The repository structure is:
