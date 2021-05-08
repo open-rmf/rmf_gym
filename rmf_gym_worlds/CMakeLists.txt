@@ -14,11 +14,6 @@ install(DIRECTORY
   DESTINATION share/${project_name}
 )
 
-install(DIRECTORY
-  tests/
-  DESTINATION share/${project_name}
-)
-
 ament_package()
 
 file(GLOB_RECURSE traffic_editor_paths "maps/*.building.yaml")

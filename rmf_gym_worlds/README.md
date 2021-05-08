@@ -1,3 +1,3 @@
-# rmf_gym
+# rmf_gym_worlds
 
 
