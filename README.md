@@ -1,6 +1,6 @@
 # rmf_gym
 
-Welcome! `rmf_gym` aims to combine a few different goals for the [Robotics Middleware Framework](https://github.com/open-rmf/rmf_demos) ( RMF ):
+Welcome! `rmf_gym` aims to provide the following for the [Robotics Middleware Framework](https://github.com/open-rmf/rmf_demos) ( RMF ):
 * Practical Tutorials
 * Testing infrastructure 
 * Documentation
@@ -18,6 +18,7 @@ A `Vagrantfile` is provided to set up a VM with `rmf_gym`. This helps make to se
 ```
 # For virtualbox, you might need to install python
 sudo apt install python ( python-is-python2 )
+# You should also modify the Vagrantfile according to the amount of RAM you can provide to the VM, at least 8GB if you build from source.
 
 vagrant up                # Provision VM
 vagrant ssh-config        # For ssh information
