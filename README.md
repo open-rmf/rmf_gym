@@ -32,13 +32,12 @@ ros2 launch rmf_demos office.launch.xml
 
 Alternatively, you can also download a pre-built box from [Vagrant Cloud](https://app.vagrantup.com/cnboonhan/boxes/rmf):
 ```
-vagrant box add cnboonhan/rmf
-vagrant init cnboonhan/rmf
-# Modify the generated Vagrantfile as necessary, from the init step with reference to these lines:
-# https://github.com/open-rmf/rmf_gym/blob/main/Vagrantfile#L14-L21
-# In particular, X11 forwarding is necessary for GUIs
-vagrant up
-vagrant ssh
+VAGRANT_VAGRANTFILE=Vagrantfile.cloud vagrant up
+VAGRANT_VAGRANTFILE=Vagrantfile.cloud vagrant ssh
+
+source /opt/ros/foxy/setup.bash
+source $HOME/rmf_ws/install/setup.bash
+ros2 launch rmf_demos office.launch.xml
 ```
 
 ## Examples
