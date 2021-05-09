@@ -25,9 +25,7 @@ maps:                                       Contains all building files and floo
 
 # The base world
 The `Base` world is a template world `10m X 20m` meant to standardize the dimensions of all testing scenarios. The motivation is that
-these test worlds can be used to support hardware testing. We can modify the base world template and even add hardware in the loop.
-
-By standardizing the physical space for each test world, it is easier to determine and arrange for hardware tests. 
+these test worlds can be used to support hardware testing: By having a standard dimensions, it's easy to reuse these scenarios for hardware-in-the-loop testing.
 
 ## Trying the base world
 We can already try out the base world and a basic test case.
@@ -38,9 +36,6 @@ ros2 launch rmf_gym_worlds base_basic_test.launch.xml
 ```
 
 We should see the two robots looping in a cross-shape. When 10 Loops have been completed by each robot, the test process will terminate with a `0` exit status.
-```
-echo $?       # returns 0
-```
 
 If the test case fails, the command will return 1. This happens when a timeout is reached. You can use this in our testing infrastructure to carry out contingency measures.
 
