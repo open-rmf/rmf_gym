@@ -14,7 +14,7 @@ It is easy to tweak the gym worlds to include your hardware for testing, by phys
 The package [`rmf_gym_tools`](/rmf_gym_tools) contain scripts and automation that help with testing RMF. These can be run standalone or put into [test launch files](/rmf_gym_worlds/launch/tests/base). You can send pre-determined tasks to replicate tricky scenarios, or infinitely send random tasks to see how long the system lasts.
 
 ## Vagrant Machine Image
-A `Vagrantfile` is provided to create a Virtual Machine with `rmf_gym` all set up. This helps make to set up a consistent environment quickly, regardless of your current setup. [Install Vagrant](https://www.vagrantup.com/docs/installation) and [install VirtualBox](https://www.virtualbox.org/wiki/Linux_Downloads), then run:
+A `Vagrantfile` is provided to create a Virtual Machine with `rmf_gym` all set up. This could be a quick way to try out `rmf_gym`, although there is a performance penalty to it. [Install Vagrant](https://www.vagrantup.com/docs/installation) and [install VirtualBox](https://www.virtualbox.org/wiki/Linux_Downloads), then run:
 ```
 # For virtualbox, you might need to install python
 sudo apt install python ( python-is-python2 )
