@@ -17,14 +17,15 @@ ros2 run rmf_gym_tools check_tasks_complete --task_check_period 10.0 --task_chec
 ```
 
 ## extract_waypoints
-Given a path to a building.yaml file, generate a list of waypoint names for each graph that was annotated. 
+Given a path to a building.yaml file, generate a list of waypoint names for each graph that was annotated. Generates a bunch of files:
+Each Graph will have one generated file with all the waypoints across all levels. Then, more files are also generated that splits the waypoints up by level name.
 ```
 # Extract waypoint names to current folder
 ros2 run rmf_gym_tools extract_waypoints --building_path rmf_gym_worlds/maps/base/base.building.yaml --output_path .
 ```
 
 ## random_tasks
-This script repeatedly issues tasks to a given target fleet.
+This script repeatedly issues tasks to a given target fleet based on a provided yaml file.
 Currently, only Loop Tasks are available.
 
 ```
