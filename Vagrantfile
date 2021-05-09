@@ -15,6 +15,10 @@ Vagrant.configure("2") do |config|
   config.vm.network "public_network"
   config.vm.define "rmf"
   config.vm.hostname = "rmf"
+  config.vm.provider "virtualbox" do |v|
+        v.memory = 8000         # Change this base on your host RAM avaiability
+        v.cpus = 2
+  end
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -48,5 +52,7 @@ Vagrant.configure("2") do |config|
      vcs import src < rmf.repos
      rosdep install --from-paths src --ignore-src --rosdistro foxy -yr
      source /opt/ros/foxy/setup.bash && colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release
+     echo "source /opt/ros/foxy/setup.bash" >> /home/vagrant/.bashrc
+     echo "source /home/vagrant/rmf_ws/install/setup.bash" >> /home/vagrant/.bashrc
    SHELL
 end
