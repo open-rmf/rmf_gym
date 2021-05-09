@@ -36,6 +36,7 @@ vagrant box add cnboonhan/rmf
 vagrant init cnboonhan/rmf
 # Modify the generated Vagrantfile as necessary, from the init step with reference to these lines:
 # https://github.com/open-rmf/rmf_gym/blob/main/Vagrantfile#L14-L21
+# In particular, X11 forwarding is necessary for GUIs
 vagrant up
 vagrant ssh
 ```
