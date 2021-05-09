@@ -15,9 +15,6 @@ Vagrant.configure("2") do |config|
   config.vm.network "public_network"
   config.vm.define "rmf"
   config.vm.hostname = "rmf"
-  config.vm.provider "virtualbox" do |v|
-      v.cpus = 4
-  end
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
