@@ -16,6 +16,9 @@ The package [`rmf_gym_tools`](/rmf_gym_tools) contain scripts and automation tha
 ## Vagrant Machine Image
 A `Vagrantfile` is provided to set up a VM with `rmf_gym`. This helps make to set up a consistent environment quickly, regardless of your current setup. [Install Vagrant](https://www.vagrantup.com/docs/installation) and [install VirtualBox](https://www.virtualbox.org/wiki/Linux_Downloads), then run:
 ```
+# For virtualbox, you might need to install python
+sudo apt install python ( python-is-python2 )
+
 vagrant up                # Provision VM
 vagrant ssh-config        # For ssh information
 vagrant ssh               # Get a terminal
