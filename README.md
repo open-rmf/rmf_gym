@@ -5,8 +5,13 @@ Welcome! `rmf_gym` aims to provide the following for the [Robotics Middleware Fr
 * Testing infrastructure 
 * Documentation
 
+## Tutorials
+This gym means to offer a more hands-on approach to learning RMF, we will make reference to the [ROS2 Multi Robot Book](https://osrf.github.io/ros2multirobotbook/) for extensive explanations.
+
+The practical tutorials can be found [here](/docs).
+
 ## rmf_gym_worlds
-The package [`rmf_gym_worlds`](/rmf_gym_worlds) contains many RMF worlds that are optimized for focused simulation testing. There are also tutorials that teach you how to craft your own testing world, which doubly act as tutorials on how to use RMF. 
+The package [`rmf_gym_worlds`](/rmf_gym_worlds) contains many RMF worlds that are optimized for focused simulation testing. There are also tutorials that teach you how to craft your own testing world.
 
 It is easy to tweak the gym worlds to include your hardware for testing, by physically running your robot alongside simulations in a physical `10m x 20m` space.
 
@@ -14,9 +19,9 @@ It is easy to tweak the gym worlds to include your hardware for testing, by phys
 The package [`rmf_gym_tools`](/rmf_gym_tools) contain scripts and automation that help with testing RMF. These can be run standalone or put into [test launch files](/rmf_gym_worlds/launch/tests/base). You can send pre-determined tasks to replicate tricky scenarios, or infinitely send random tasks to see how long the system lasts.
 
 ## Vagrant Machine Image
-A `Vagrantfile` is provided to create a Virtual Machine with `rmf_gym` all set up. This could be a quick way to try out `rmf_gym`, although there is a performance penalty to it. 
+A `Vagrantfile` is provided to create a Virtual Machine with `rmf_gym` all set up. This could be a quick way to try out `rmf_gym`, although there is a pretty significant performance penalty to it.
 
-Note that some devices might encounter a GLX context error when running graphical interfaces like `rviz` and `gazebo` but others might not. I'm not entirely sure what's wrong yet, but it probably has to do with graphics drivers.
+Note that some devices might encounter a GLX context error when running graphical interfaces like `rviz` and `gazebo` but others might not. I'm not entirely sure what's wrong yet, but it probably has to do with graphics drivers you are running.
 
 [Install Vagrant](https://www.vagrantup.com/docs/installation) and [install VirtualBox](https://www.virtualbox.org/wiki/Linux_Downloads), then run:
 ```
@@ -32,6 +37,9 @@ vagrant ssh               # Get a terminal
 source /opt/ros/foxy/setup.bash
 source $HOME/rmf_ws/install/setup.bash
 ros2 launch rmf_demos office.launch.xml
+
+# If the GUI is giving errors or is too slow
+ros2 launch rmf_demos office.launch.xml headless:=1
 ```
 
 Alternatively, you can also download a pre-built box from [Vagrant Cloud](https://app.vagrantup.com/cnboonhan/boxes/rmf):
@@ -42,17 +50,20 @@ VAGRANT_VAGRANTFILE=Vagrantfile.cloud vagrant ssh
 source /opt/ros/foxy/setup.bash
 source $HOME/rmf_ws/install/setup.bash
 ros2 launch rmf_demos office.launch.xml
+
+# If the GUI is giving errors or is too slow
+ros2 launch rmf_demos office.launch.xml headless:=1
 ```
 
 ## Examples
 
 ### base
-![base.gif](/docs/base.gif)
+![base.gif](/docs/gifs/base.gif)
 
 ### narrow_corridor
-![narrow_corridor.gif](/docs/narrow_corridor.gif)
+![narrow_corridor.gif](/docs/gifs/narrow_corridor.gif)
 
 ### simple_lift
-![simple_lift.gif](/docs/simple_lift.gif)
+![simple_lift.gif](/docs/gifs/simple_lift.gif)
 
 More to come!
