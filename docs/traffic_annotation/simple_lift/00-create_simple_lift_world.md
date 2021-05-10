@@ -26,8 +26,8 @@ cp launch/include/rviz/base/base.rviz launch/include/rviz/simple_lift/simple_lif
 These are the files that will modify to represent traffic lanes, and infrastructure like lifts and doors in our world, using the `traffic-editor`.
 ```
 mkdir -p maps/simple_lift
-cp -r maps/base/base.building.yaml maps/simple_lift/simple_lift.building.yaml
-cp -r maps/base/base.png maps/simple_lift/simple_lift.png
+cp maps/base/base.building.yaml maps/simple_lift/simple_lift.building.yaml
+cp maps/base/base.png maps/simple_lift/simple_lift.png
 sed -i "s/base/simple_lift/g" maps/simple_lift/simple_lift.building.yaml
 ```
 
