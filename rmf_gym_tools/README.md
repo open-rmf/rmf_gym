@@ -5,6 +5,12 @@ Tools to help test RMF worlds.
 ## envs
 This folder contains various options on how to quickly provision a machine to try out RMF. 
 
+## check_environment
+This tool does some basic checks to make sure that your current setup is correct.
+```
+ros2 run rmf_gym_tools check_environment --ros_version foxy --ros_domain_id 0 --dds_version rmw_cyclonedds_cpp
+```
+
 ## check_tasks_complete
 This process wil loop indefinitely, and terminate once there are no more `active_tasks` when querying the RMF dispatcher.
 
