@@ -4,7 +4,7 @@ There are many ways to configure RMF due to its multi-system nature. This gym is
 
 * Ubuntu 20.04
 * Gazebo 11
-* Following the `rmf_demos` source build instructions
+* Following the `rmf_demos` [source build instructions](https://github.com/open-rmf/rmf)
 * `RMW_IMPLEMENTATION=rmw_cyclonedds_cpp`
 * `ROS_DOMAIN_ID=0`
 * No CycloneDDS configuration file
