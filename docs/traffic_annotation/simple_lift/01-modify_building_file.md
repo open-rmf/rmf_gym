@@ -7,7 +7,7 @@ Open the traffic editor:
 traffic-editor maps/simple_lift/simple_lift.building.yaml
 ```
 
-We will be using the [Traffic Editor Secion](https://osrf.github.io/ros2multirobotbook/traffic-editor.html) for reference.
+We will be using the [Traffic Editor Section](https://osrf.github.io/ros2multirobotbook/traffic-editor.html) for reference.
 
 Always make sure that your graphs are fully connected, and not just look like it. A common mistake is having two overlapping vertices, instead of one vertex joining two edges:
 ```
