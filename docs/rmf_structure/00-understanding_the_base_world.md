@@ -1,4 +1,4 @@
-# Narrow Corridor - Understanding the Base World
+# RMF Basics - Understanding the Base World
 
 We will first walk through the `base` world and understand what it is, exactly.
 
