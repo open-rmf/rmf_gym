@@ -1,4 +1,4 @@
-# RMF Basics - Understanding the Base World
+# Understanding the Base World
 
 We will first walk through the `base` world and understand what it is, exactly.
 
@@ -11,6 +11,9 @@ There are important components that make up any RMF world. Do follow all the lin
 A World is put together by launching a variety of processes, each doing an important task, as described below. 
 
 The Base World is primarily a simulation one. For modifying it to include hardware, see [TODO].
+
+### Simulation Time
+It is important to note that for simulations, we use simulation time. Once hardware is added to the mix, we have to configure our systems accordingly. The `use_sim_time` parameter is crucial to make this distinction. Nodes should be consistently either using sim time, or not.
 
 ### Schedule
 The traffic schedule is a centralized database of all the intended robot traffic trajectories in a facility. 

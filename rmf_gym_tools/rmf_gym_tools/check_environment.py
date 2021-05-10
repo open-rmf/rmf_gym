@@ -17,6 +17,8 @@
 import argparse
 import sys
 import os
+import subprocess
+import time
 
 def main(argv=sys.argv):
   # Check that the RMF environment is properly set up
@@ -55,7 +57,18 @@ def main(argv=sys.argv):
     success = False
 
   if success:
-    print("Success")
-    sys.exit(0)
+    # Final check that ros2 topic list works
+    subprocess.Popen(['ros2', 'daemon',  'stop'], stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+    subprocess.Popen(['ros2', 'daemon',  'start'],stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+    child = subprocess.Popen(['ros2', 'topic',  'list'], stdout=subprocess.PIPE)
+    while child.poll() is None:
+      time.sleep(0.5)
+
+    if child.returncode == 0:
+      print("Success")
+      sys.exit(0)
+    else:
+      print("ros2 topic list failed: This could be a DDS configuration issue. Is your dds network interface up?")
+      sys.exit(1)
   else:
     sys.exit(1)
