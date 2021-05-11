@@ -16,10 +16,10 @@ rmf_gym_worlds
         base_sim_teardown.launch.xml        # Launch file that deletes simulation robots
         test_base_..._hw.launch.xml         # Hardware Specific tests ( no simulations )
         test_base_..._sim.launch.xml        # Simulation Specific tests 
-      base.launch.xml           # The main launch file for this world
-    ...
-  common.launch.xml             # Common launch nodes
-  simulation.launch.xml         # Simulation launch nodes
+      base.launch.xml                       # The main launch file for this world
+    ...                                     # Other test worlds
+  common.launch.xml                         # Common launch nodes
+  simulation.launch.xml                     # Simulation launch nodes
 ```
 
 # The base world
