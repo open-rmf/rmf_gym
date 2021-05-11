@@ -30,6 +30,31 @@ Each Graph will have one generated file with all the waypoints across all levels
 ros2 run rmf_gym_tools extract_waypoints --building_path rmf_gym_worlds/maps/base/base.building.yaml --output_path .
 ```
 
+## get_waypoint_location
+Given a path to building.yaml and path to a nav_graph file, and a target waypoint name, we retrieve the physical x, y coordinates, and height of this waypoint.
+Useful for spawning robots at specific locations in RMF.
+```
+ros2 run rmf_gym_tools get_waypoint_location --building_path install/rmf_gym_worlds/share/rmf_gym_worlds/worlds/base/maps/base.building.yaml --nav_graph_path install/rmf_gym_worlds/share/rmf_gym_worlds/maps/base/nav_graphs/0.yaml  --waypoint_name 0_a
+```
+
+## spawn_robot
+Spawns a given robot to coordinates defined in a yaml file.
+```
+ros2 run rmf_gym_tools spawn_robot --config_path 0_a.yml --sdf_path install/rmf_demos_assets/share/rmf_demos_assets/models/TinyRobot/model.sdf --robot_name tinyRobot1
+```
+
+## despawn_robot
+Deletes a robot with a given name
+```
+ros2 run rmf_gym_tools despawn_robot -m tinyRobot1
+```
+
+## spawn_robot_at
+A helper function that combines `get_waypoint_location` and `spawn_robot` to directly spawn a robot at a waypoint.
+```
+ros2 run rmf_gym_tools spawn_robot --config_path 0_a.yml --sdf_path install/rmf_demos_assets/share/rmf_demos_assets/models/TinyRobot/model.sdf --robot_name tinyRobot1
+
+
 ## random_tasks
 This script repeatedly issues tasks to a given target fleet based on a provided yaml file.
 Currently, only Loop Tasks are available.

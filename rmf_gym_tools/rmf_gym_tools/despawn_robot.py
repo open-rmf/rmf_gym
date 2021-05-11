@@ -14,3 +14,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
+import subprocess
+import argparse
+import collections
+from pathlib import Path
+
+
+def main(argv=sys.argv):
+  parser = argparse.ArgumentParser()
+  parser.add_argument("--robot_name", required=True, type=str,
+                      help='Name of robot to spawn')
+
+  parsed_args = parser.parse_args(argv[1:])
+
+  subprocess.Popen(['gz', 'model',  '-m', parsed_args.robot_name, '-d']).communicate()
+
+if __name__ == '__main__':
+  main(sys.argv)

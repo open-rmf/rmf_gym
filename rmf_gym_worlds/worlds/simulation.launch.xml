@@ -1,7 +1,7 @@
 <?xml version='1.0' ?>
 
 <launch>
-  <arg name="map_package" default="rmf_demos_maps" description="Name of the map package" />
+  <arg name="map_package" default="rmf_gym_worlds" description="Name of the map package" />
   <arg name="map_name" description="Name of the rmf_demos map to simulate" />
   <arg name="use_ignition" default="0" />
   <arg name="use_crowdsim" default='0'/>

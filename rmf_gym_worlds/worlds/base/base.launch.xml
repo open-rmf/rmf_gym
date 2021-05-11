@@ -5,17 +5,18 @@
   <arg name="gazebo_version" default="11"/>
   <arg name="use_sim_time" default="true"/>
   <arg name="failover_mode" default="false"/>
+  <arg name="world_name" default="base"/>
 
   <!-- Common launch -->
-  <include file="$(find-pkg-share rmf_gym_worlds)/common.launch.xml">
+  <include file="$(find-pkg-share rmf_gym_worlds)/worlds/common.launch.xml">
     <arg name="use_sim_time" value="$(var use_sim_time)"/>
-    <arg name="viz_config_file" value ="$(find-pkg-share rmf_gym_worlds)/include/rviz/base/base.rviz"/>
-    <arg name="config_file" value="$(find-pkg-share rmf_gym_worlds)/base/base.building.yaml"/>
+    <arg name="viz_config_file" value ="$(find-pkg-share rmf_gym_worlds)/rviz/10_20.rviz"/>
+    <arg name="config_file" value="$(find-pkg-share rmf_gym_worlds)/worlds/$(var world_name)/maps/$(var world_name).building.yaml"/>
   </include>
 
   <!-- Simulation launch -->
-  <include file="$(find-pkg-share rmf_gym_worlds)/simulation.launch.xml">
-    <arg name="map_name" value="base" />
+  <include file="$(find-pkg-share rmf_gym_worlds)/worlds/simulation.launch.xml">
+    <arg name="map_name" value="$(var world_name)" />
     <arg name="map_package" value="rmf_gym_worlds" />
     <arg name="use_ignition" value="$(var use_ignition)" />
     <arg name="gazebo_version" value="$(var gazebo_version)" />
@@ -24,10 +25,10 @@
   <!-- TinyRobot fleet adapter and robot state aggregator needed for the TinyRobot slotcar_plugin -->
   <group>
     <let name="fleet_name" value="tinyRobot"/>
-    <include file="$(find-pkg-share rmf_gym_worlds)/include/adapters/tinyRobot_adapter.launch.xml">
+    <include file="$(find-pkg-share rmf_gym_worlds)/adapters/tinyRobot_adapter.launch.xml">
       <arg name="fleet_name" value="$(var fleet_name)"/>
       <arg name="use_sim_time" value="$(var use_sim_time)"/>
-      <arg name="nav_graph_file" value="$(find-pkg-share rmf_gym_worlds)/maps/base/nav_graphs/0.yaml" />
+      <arg name="nav_graph_file" value="$(find-pkg-share rmf_gym_worlds)/maps/$(var world_name)/nav_graphs/0.yaml" />
     </include>
     <include file="$(find-pkg-share rmf_fleet_adapter)/robot_state_aggregator.launch.xml">
       <arg name="robot_prefix" value="tinyRobot"/>
@@ -40,10 +41,10 @@
   <!-- DeliveryRobot fleet adapter and robot state aggregator needed for the DeliveryRobot slotcar_plugin -->
   <group>
     <let name="fleet_name" value="deliveryRobot"/>
-    <include file="$(find-pkg-share rmf_gym_worlds)/include/adapters/deliveryRobot_adapter.launch.xml">
+    <include file="$(find-pkg-share rmf_gym_worlds)/adapters/deliveryRobot_adapter.launch.xml">
       <arg name="fleet_name" value="$(var fleet_name)"/>
       <arg name="use_sim_time" value="$(var use_sim_time)"/>
-      <arg name="nav_graph_file" value="$(find-pkg-share rmf_gym_worlds)/maps/base/nav_graphs/1.yaml" />
+      <arg name="nav_graph_file" value="$(find-pkg-share rmf_gym_worlds)/maps/$(var world_name)/nav_graphs/1.yaml" />
     </include>
     <include file="$(find-pkg-share rmf_fleet_adapter)/robot_state_aggregator.launch.xml">
       <arg name="robot_prefix" value="deliveryRobot"/>

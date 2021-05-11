@@ -1,0 +1,10 @@
+<?xml version='1.0' ?>
+
+<launch>
+  <arg name="task_timeout" default="300.0"/>
+
+  <executable cmd="ros2 run rmf_demos_tasks dispatch_loop -s 0_a -f 0_b -n 5" output="both"/>
+  <executable cmd="ros2 run rmf_demos_tasks dispatch_loop -s 1_b -f 1_a -n 5" output="both"/>
+  <executable cmd="ros2 run rmf_gym_tools check_tasks_complete --task_check_timeout=$(var task_timeout)" output="both"/>
+</launch>
+

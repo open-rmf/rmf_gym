@@ -5,18 +5,23 @@ project(rmf_gym_worlds)
 find_package(ament_cmake REQUIRED)
 
 install(DIRECTORY
-  launch/
-  DESTINATION share/${PROJECT_NAME}
+  worlds/
+  DESTINATION share/${PROJECT_NAME}/worlds
 )
 
 install(DIRECTORY
-  maps/
-  DESTINATION share/${PROJECT_NAME}
+  adapters/
+  DESTINATION share/${PROJECT_NAME}/adapters
+)
+
+install(DIRECTORY
+  rviz/
+  DESTINATION share/${PROJECT_NAME}/rviz
 )
 
 ament_package()
 
-file(GLOB_RECURSE traffic_editor_paths "maps/*.building.yaml")
+file(GLOB_RECURSE traffic_editor_paths "worlds/*.building.yaml")
 
 foreach(path ${traffic_editor_paths})
 

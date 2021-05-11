@@ -1,0 +1,14 @@
+<?xml version='1.0' ?>
+
+<launch>
+  <arg name="task_timeout" default="200.0"/>
+
+  <executable cmd="gz physics -u 0" output="both"/>
+
+  <!-- Tests -->
+  <executable cmd="ros2 run rmf_demos_tasks dispatch_loop -s 0_a -f 0_b -n 5 --use_sim_time" output="both"/>
+  <executable cmd="ros2 run rmf_gym_tools check_tasks_complete --task_check_timeout=$(var task_timeout)" output="both"/>
+
+</launch>
+
+

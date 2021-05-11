@@ -1,0 +1,16 @@
+<?xml version='1.0' ?>
+
+<launch>
+  <arg name="world" default="simple_lift"/>
+
+  <arg name="building_path" default="$(find-pkg-share rmf_gym_worlds)/worlds/$(var world)/maps/$(var world).building.yaml"/>
+  <arg name="nav_graph_folder" default="$(find-pkg-share rmf_gym_worlds)/maps/$(var world)/nav_graphs"/>
+  <arg name="model_path" default="$(find-pkg-share rmf_demos_assets)/models"/>
+
+  <!-- Spawn Robots -->
+  <executable cmd="ros2 run rmf_gym_tools spawn_robot_at 
+    --building_path $(var building_path) --nav_graph_path $(var nav_graph_folder)/0.yaml --sdf_path $(var model_path)/TinyRobot/model.sdf --waypoint_name 0_a  --robot_name tinyRobot1" output="both"/>
+
+</launch>
+
+

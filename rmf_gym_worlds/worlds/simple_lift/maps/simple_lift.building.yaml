@@ -44,7 +44,7 @@ levels:
       - [3004.655, 1570.354, 0, ""]
       - [125.203, 1571.918, 0, ""]
       - [126.743, 38.206, 0, ""]
-      - [385.824, 744.09, 0, 0_a, {is_charger: [4, true], spawn_robot_name: [1, tinyRobot1], spawn_robot_type: [1, TinyRobot]}]
+      - [385.824, 744.09, 0, 0_a, {is_charger: [4, true]}]
       - [1383.456, 744.09, 0, "", {is_parking_spot: [4, true]}]
       - [1716.918, 744.09, 0, "", {is_parking_spot: [4, true]}]
     walls:
