@@ -14,7 +14,12 @@ ros2 launch rmf_gym_worlds base.launch.xml
 
 You should see an RViz window pop up. This is the schedule visualizer, a graphical representation of the Schedule.
 
-You should also see Blue "bubbles" overlaying yellow ones. These are the robot vicinities. There are two different fleets, each with one robot. Can you guess how the robot names relate to their fleets?
+Now we can populate the world with robots.
+```
+ros2 launch rmf_gym_worlds base_sim_setup.launch.xml
+```
+
+You should see Blue "bubbles" overlaying yellow ones. These are the robot vicinities. There are two different fleets, each with one robot. Can you guess how the robot names relate to their fleets?
 
 You should also see purple "bubbles." These are "Fleet States", and represent the actual physical robot location.
 
@@ -29,6 +34,11 @@ ros2 run rmf_demos_tasks dispatch_loop -s 0_a -f 0_b -n 5 --use_sim_time
 
 # Send a Loop Task between waypoint 1_a and 1_b. Remember we must use sim_time
 ros2 run rmf_demos_tasks dispatch_loop -s 1_a -f 1_b -n 5 --use_sim_time
+```
+
+And equivalent test file that does the same thing:
+```
+ros2 launch rmf_gym_world test_base_simple_loop_sim.launch.xml
 ```
 
 The robots should start moving in the horizontal and vertical directions. 
