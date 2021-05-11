@@ -6,6 +6,9 @@
   <arg name="use_sim_time" default="true"/>
   <arg name="failover_mode" default="false"/>
   <arg name="world_name" default="simple_lift"/>
+  <arg name="no_simulation" default="false"/>
+  <arg name="headless" default="false"/>
+
 
   <!-- Common launch -->
   <include file="$(find-pkg-share rmf_gym_worlds)/worlds/common.launch.xml">
@@ -15,7 +18,7 @@
   </include>
 
   <!-- Simulation launch -->
-  <include file="$(find-pkg-share rmf_gym_worlds)/worlds/simulation.launch.xml">
+  <include unless="$(var no_simulation)" file="$(find-pkg-share rmf_gym_worlds)/worlds/simulation.launch.xml">
     <arg name="map_name" value="$(var world_name)" />
     <arg name="map_package" value="rmf_gym_worlds" />
     <arg name="use_ignition" value="$(var use_ignition)" />
