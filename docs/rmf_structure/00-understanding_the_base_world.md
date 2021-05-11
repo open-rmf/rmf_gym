@@ -2,8 +2,7 @@
 
 We will first walk through the `base` world and understand what it is, exactly.
 
-First, you should have a look at the structure of launch files in [rmf_demos](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos/launch) and [this_repo](/rmf_gym_worlds/launch) and understand the general structure.
-
+First, you should have a look at the structure of launch files in [rmf_demos](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos/launch) and the [Base World](/rmf_gym_worlds/worlds/base) and understand the general structure.
 
 ## Explaining the Base World
 There are important components that make up any RMF world. Do follow all the links to get a good understanding.

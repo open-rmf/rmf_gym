@@ -4,7 +4,7 @@ Here we show, step by step, how to modify the Base World into the Simple Lift Wo
 Open the traffic editor:
 ```
 # Source ROS2 and your workspace
-traffic-editor maps/simple_lift/simple_lift.building.yaml
+traffic-editor rmf_gym_worlds/worlds/simple_lift/maps/simple_lift.building.yaml
 ```
 
 We will be using the [Traffic Editor Section](https://osrf.github.io/ros2multirobotbook/traffic-editor.html) for reference.
@@ -14,6 +14,9 @@ Always make sure that your graphs are fully connected, and not just look like it
 A-B B'-C      # bad
 A-B-C         # Good
 ```
+
+### Understand Terminology
+Have a look at the [GUI layout](https://osrf.github.io/ros2multirobotbook/traffic-editor.html#gui-layout) to understand terminology when referencing parts of the editor.
 
 ### Delete Graph 1
 There are two Graphs, 0 and 1. You can see this by the two lane colors. Lets remove all annotations for Graph 1.
@@ -33,6 +36,7 @@ We will remove the rightmost lane, since we will be placing this on a different 
 
 ### Add Level 3
 Have a look at how to add a 
+* [vertex](https://osrf.github.io/ros2multirobotbook/traffic-editor.html#adding-a-vertex)
 * [level](https://osrf.github.io/ros2multirobotbook/traffic-editor.html#adding-a-level)
 * [measurements](https://osrf.github.io/ros2multirobotbook/traffic-editor.html#adding-a-measurement) 
 * [fiducials](https://osrf.github.io/ros2multirobotbook/traffic-editor.html#adding-fiducials)
