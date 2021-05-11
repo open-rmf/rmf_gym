@@ -15,6 +15,9 @@ A-B B'-C      # bad
 A-B-C         # Good
 ```
 
+### Understand Terminology
+Have a look at the [GUI layout](https://osrf.github.io/ros2multirobotbook/traffic-editor.html#gui-layout) to understand terminology when referencing parts of the editor.
+
 ### Delete Graph 1
 There are two Graphs, 0 and 1. You can see this by the two lane colors. Lets remove all annotations for Graph 1.
 ```
@@ -27,9 +30,6 @@ There are two Graphs, 0 and 1. You can see this by the two lane colors. Lets rem
 # For each of these vertices, press Del
 # Select [traffic > Graph 0] and uncheck the Graph 0 checkbox to show Graph 0 again
 ```
-
-### Understand Terminology
-Have a look at the [GUI layout](https://osrf.github.io/ros2multirobotbook/traffic-editor.html#gui-layout) to understand terminology when referencing parts of the editor.
 
 ### Partially Delete Graph 0
 We will remove the rightmost lane, since we will be placing this on a different level.
