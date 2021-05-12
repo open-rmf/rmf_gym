@@ -38,7 +38,7 @@ ros2 run rmf_demos_tasks dispatch_loop -s 1_a -f 1_b -n 5 --use_sim_time
 
 And equivalent test file that does the same thing:
 ```
-ros2 launch rmf_gym_worlds test_base_simple_loop.launch.xml
+ros2 launch rmf_gym_worlds test_base_simple_loop.launch.xml use_sim_time:=true
 ```
 
 The robots should start moving in the horizontal and vertical directions. 
@@ -47,8 +47,25 @@ You should immediately see green lines projected from the robots. These are traj
 
 You might see the lines turn red. This represents a detection of conflicts, which will then be followed by [negotiation and conflict resolution](https://osrf.github.io/ros2multirobotbook/rmf-core.html?highlight=deconflict#traffic-deconfliction). We should hopefully never see the robots crash into each other or get stuck.
 
+## Launch Variations
 If you want to launch the world without opening graphical panels ( for example in a server ), you can run
 
 ```
-ros2 launch rmf_gym_worlds base.launch.xml headless:=1
+ros2 launch rmf_gym_worlds base.launch.xml headless:=true
+```
+
+If you do not want simulations at all:
+```
+ros2 launch rmf_gym_worlds base.launch.xml no_simulation:=true
+```
+
+If you want to run the tests at real time:
+```
+ros2 launch rmf_gym_worlds test_base_simple_loop.launch.xml use_sim_time:=false
+```
+
+
+If you want to change how long the test takes to timeout to 5 seconds ( and count as a failure )
+```
+ros2 launch rmf_gym_worlds test_base_simple_loop.launch.xml task_timeout:=5
 ```
