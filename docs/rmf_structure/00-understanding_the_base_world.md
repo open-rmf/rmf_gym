@@ -74,7 +74,7 @@ is used in simulation settings by aggregating simulation robots into fleets. For
 
 Thus, if a robot state aggregator `robot_prefix` is set to "tinyRobot", then all robots in the simulation with their named prefixed with that ( EG `tinyRobot1` ) will be aggregated as part of this fleet.
 
-* [Where it is](https://github.com/open-rmf/rmf_gym/blob/main/rmf_gym_worlds/launch/base.launch.xml#L32-L37)
+* [Where it is](https://github.com/open-rmf/rmf_gym/blob/main/rmf_gym_worlds/worlds/base/base.launch.xml#L51)
 
 ### Fleet Adapters
 Fleet Adapters are bridges between robot fleets and RMF. In this scenario, a robot state aggregator combines individual robots into a fleet. The Fleet Adapter then interfaces with the simulation fleet to control them.
