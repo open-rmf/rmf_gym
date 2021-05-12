@@ -60,6 +60,9 @@ ros2 launch rmf_demos office.launch.xml headless:=1
 ### base
 ![base.gif](/docs/gifs/base.gif)
 
+### simple_door
+![simple_door.gif](/docs/gifs/simple_door.gif)
+
 ### simple_lift
 ![simple_lift.gif](/docs/gifs/simple_lift.gif)
 
