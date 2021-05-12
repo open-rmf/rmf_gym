@@ -63,7 +63,8 @@ We use the `slotcar` plugin to simulate robots in RMF. This plugin is "attached"
 
 It is a simple plugin meant to approximate a robot navigation stack. Its obstacle "avoidance" is based on object names. It is thus important to name the simulation entities correctly, so that the robot can do "obstacle detection". In particular, a lift in simulation must have the word "lift" in its name, a door in simulation must have the word "door".
 * [Where It Is](https://github.com/open-rmf/rmf_gym/blob/main/rmf_gym_worlds/worlds/simulation.launch.xml)
-* [Further Info](https://osrf.github.io/ros2multirobotbook/simulation.html)
+* [Further Info](https://osrf.github.io/ros2multirobotbook/simulation.html#robots)
+
 * [SlotCar](https://github.com/open-rmf/rmf_simulation/blob/main/rmf_robot_sim_gazebo_plugins/src/slotcar.cpp)
 * [SlotCar code for obstacle detection](https://github.com/open-rmf/rmf_simulation/blob/main/rmf_robot_sim_gazebo_plugins/src/slotcar.cpp#L107-L127)
 * [TinyRobot SDF](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_assets/models/TinyRobot/model.sd://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_assets/models/TinyRobot/model.sdf)
