@@ -29,7 +29,7 @@ setup(
           'get_waypoint_location = rmf_gym_tools.get_waypoint_location:main',
           'spawn_robot = rmf_gym_tools.spawn_robot:main',
           'despawn_robot = rmf_gym_tools.despawn_robot:main',
-          'spawn_robot_at = rmf_gym_tools.spawn_robot_at:main',
+          'spawn_robot_at_waypoint = rmf_gym_tools.spawn_robot_at_waypoint:main',
         ],
     },
 )

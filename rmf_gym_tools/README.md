@@ -49,7 +49,7 @@ Deletes a robot with a given name
 ros2 run rmf_gym_tools despawn_robot -m tinyRobot1
 ```
 
-## spawn_robot_at
+## spawn_robot_at_waypoint
 A helper function that combines `get_waypoint_location` and `spawn_robot` to directly spawn a robot at a waypoint.
 ```
 ros2 run rmf_gym_tools spawn_robot --config_path 0_a.yml --sdf_path install/rmf_demos_assets/share/rmf_demos_assets/models/TinyRobot/model.sdf --robot_name tinyRobot1
