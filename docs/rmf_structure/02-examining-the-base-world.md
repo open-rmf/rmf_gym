@@ -38,7 +38,7 @@ ros2 run rmf_demos_tasks dispatch_loop -s 1_a -f 1_b -n 5 --use_sim_time
 
 And equivalent test file that does the same thing:
 ```
-ros2 launch rmf_gym_world test_base_simple_loop.launch.xml
+ros2 launch rmf_gym_worlds test_base_simple_loop.launch.xml
 ```
 
 The robots should start moving in the horizontal and vertical directions. 
