@@ -33,5 +33,6 @@ colcon build --packages-select rmf_gym_worlds
 
 We should now be able to run the new world:
 ```
+# source your workspace 
 ros2 launch rmf_gym_worlds $NEW_WORLD.launch.xml
 ``` 
