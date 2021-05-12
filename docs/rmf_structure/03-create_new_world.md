@@ -19,6 +19,7 @@ grep -rl base . | xargs sed -i "s/base/$NEW_WORLD/g"
 
 Then we rename the files themselves:
 ```
+sudo apt install rename -y
 cd $NEW_WORLD
 find . -name '*base*' -exec rename base "$NEW_WORLD" {} +
 ```
@@ -32,5 +33,6 @@ colcon build --packages-select rmf_gym_worlds
 
 We should now be able to run the new world:
 ```
-ros2 launch rmf_gym_worlds corridor.launch.xml
+# source your workspace 
+ros2 launch rmf_gym_worlds $NEW_WORLD.launch.xml
 ``` 
