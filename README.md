@@ -13,7 +13,7 @@ The practical tutorials can be found [here](/docs).
 ## rmf_gym_worlds
 The package [`rmf_gym_worlds`](/rmf_gym_worlds) contains many RMF worlds that are optimized for focused simulation testing. There are also tutorials that teach you how to craft your own testing world. They are also standard in size to help hardware in the loop testing.
 
-It is easy to tweak the gym worlds to include your hardware for testing, by physically running your robot alongside simulations.
+It is easy to tweak the gym worlds to include your hardware for testing, by physically running your robot alongside other simulated robots / infrastructure. 
 
 ## rmf_gym_tools
 The package [`rmf_gym_tools`](/rmf_gym_tools) contain scripts and automation that help with testing RMF. These can be run standalone or put into [test launch files](/rmf_gym_worlds/worlds/base/tests). You can send pre-determined tasks to replicate tricky scenarios, or infinitely send random tasks to see how long the system lasts.
