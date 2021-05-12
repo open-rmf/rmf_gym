@@ -19,6 +19,7 @@ grep -rl base . | xargs sed -i "s/base/$NEW_WORLD/g"
 
 Then we rename the files themselves:
 ```
+sudo apt install rename -y
 cd $NEW_WORLD
 find . -name '*base*' -exec rename base "$NEW_WORLD" {} +
 ```
