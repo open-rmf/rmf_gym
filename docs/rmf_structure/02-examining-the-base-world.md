@@ -30,10 +30,10 @@ We can try issuing tasks to the robots. Remember, the task will be issued to the
 gz physics -u 0
 
 # Send a Loop Task between waypoint 0_a and 0_b. Remember we must use sim_time
-ros2 run rmf_demos_tasks dispatch_loop -s 0_a -f 0_b -n 5 --use_sim_time
+ros2 run rmf_gym_tools dispatch_loop -s 0_a -f 0_b -n 5 --use_sim_time true
 
 # Send a Loop Task between waypoint 1_a and 1_b. Remember we must use sim_time
-ros2 run rmf_demos_tasks dispatch_loop -s 1_a -f 1_b -n 5 --use_sim_time
+ros2 run rmf_gym_tools dispatch_loop -s 1_a -f 1_b -n 5 --use_sim_time true
 ```
 
 And equivalent test file that does the same thing:
@@ -61,6 +61,8 @@ ros2 launch rmf_gym_worlds base.launch.xml no_simulation:=true
 
 If you want to run the tests at real time:
 ```
+ros2 launch rmf_gym_worlds base.launch.xml use_sim_time:=false
+ros2 launch rmf_gym_worlds base_sim_setup.launch.xml
 ros2 launch rmf_gym_worlds test_base_simple_loop.launch.xml use_sim_time:=false
 ```
 
