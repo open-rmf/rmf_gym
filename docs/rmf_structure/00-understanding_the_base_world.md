@@ -77,7 +77,7 @@ Thus, if a robot state aggregator `robot_prefix` is set to "tinyRobot", then all
 ### Fleet Adapters
 Fleet Adapters are bridges between robot fleets and RMF. In this scenario, a robot state aggregator combines individual robots into a fleet. The Fleet Adapter then interfaces with the simulation fleet to control them.
 
-We should **avoid** examining the exact mechanisms where the slotcar plugin communicates to the aggregator, and how that communicates with the Fleet Adapter. While the messages are exposed and open to view, it is not necessarily consistent across all robot fleets. 
+We should **avoid** examining the exact mechanisms where the slotcar plugin communicates to the aggregator, and how that communicates with the Fleet Adapter. While the messages are exposed and open to view, it is not necessarily consistent across all robot fleets ( nor is it supposed to be ). 
 
 We should consider all such messages as implementation-specific, and focus on how the Fleet Adapter APIs are used to bridge RMF and robot fleets.
 
