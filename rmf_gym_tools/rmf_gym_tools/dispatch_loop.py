@@ -32,8 +32,8 @@ class TaskRequester:
 
     def __init__(self, argv=sys.argv):
         parser = argparse.ArgumentParser()
-        parser.add_argument('-t', "--use_sim_time", required=True,
-                            type=bool, help='Use sim time')
+        parser.add_argument("--use_sim_time", required=True,
+                            type=str, help='Use sim time')
         parser.add_argument('-s', '--start', required=True,
                             type=str, help='Start waypoint')
         parser.add_argument('-f', '--finish', required=True,
@@ -53,8 +53,9 @@ class TaskRequester:
         self.submit_task_srv = self.node.create_client(
             SubmitTask, '/submit_task')
 
-        # enable ros sim time
-        if self.args.use_sim_time:
+        if self.args.use_sim_time.lower() == "false" or self.args.use_sim_time == "0":
+          pass
+        else:
             self.node.get_logger().info("Using Sim Time")
             param = Parameter("use_sim_time", Parameter.Type.BOOL, True)
             self.node.set_parameters([param])

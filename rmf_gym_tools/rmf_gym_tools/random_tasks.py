@@ -82,12 +82,17 @@ class TaskGenerator:
     with open(self.args.task_config_path) as config_file:
       task_config_file = yaml.load(config_file, Loader=yaml.FullLoader)
 
+    if selfs.args.use_sim_time.lower() == "false" or self.args.use_sim_time == "0":
+      use_sim_time = False
+    else:
+      use_sim_time = True
+
     self.config = TaskGeneratorConfig(
         self.args.task_type,
         task_config_file,
         self.args.task_priority,
         math.inf if self.args.task_count is None else self.args.task_count,
-        self.args.use_sim_time,
+        use_sim_time,
         self.args.submit_task_topic,
         self.args.get_task_topic,
         self.args.task_check_period,

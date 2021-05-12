@@ -2,7 +2,6 @@
 
 <launch>
   <arg name="task_timeout" default="200.0"/>
-  <arg name="use_sim_time" default="true"/>
 
   <executable if="$(var use_sim_time)" cmd="gz physics -u 0" output="both"/>
 
