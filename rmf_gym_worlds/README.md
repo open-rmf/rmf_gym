@@ -13,9 +13,7 @@ rmf_gym_worlds
       maps                                  # building.yaml files and other resources
       tests                                 # Tests
         base_sim_setup.launch.xml           # Launch file that spawns simulation robots          
-        base_sim_teardown.launch.xml        # Launch file that deletes simulation robots
-        test_base_..._hw.launch.xml         # Hardware Specific tests ( no simulations )
-        test_base_..._sim.launch.xml        # Simulation Specific tests 
+        test_base_...launch.xml             # Individual test task cases
       base.launch.xml                       # The main launch file for this world
     ...                                     # Other test worlds
   common.launch.xml                         # Common launch nodes
@@ -34,7 +32,7 @@ ros2 launch rmf_gym_worlds base.launch.xml use_sim_time:=true                   
 
 # Test 
 ros2 launch rmf_gym_worlds base_sim_setup.launch.xml                                  # Spawn Robots: Modify this file to change initial startup locations
-ros2 launch rmf_gym_worlds test_base_simple_loop_sim.launch.xml                       # Run any number of tests
+ros2 launch rmf_gym_worlds test_base_simple_loop.launch.xml                       # Run any number of tests
 
 # Teardown
 Ctrl-C                                                                                # Stop RMF Backend
