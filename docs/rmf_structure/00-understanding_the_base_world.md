@@ -9,7 +9,7 @@ There are important components that make up any RMF world. Do follow all the lin
 
 A World is put together by launching a variety of processes, each doing an important task, as described below. 
 
-The Base World is primarily a simulation one. For modifying it to include hardware, see [TODO].
+For using the Base world ( and others ) with real hardware, see [TODO].
 
 ### Simulation Time
 It is important to note that for simulations, we use simulation time. Once hardware is added to the mix, we have to configure our systems accordingly. The `use_sim_time` parameter is crucial to make this distinction. Nodes should be consistently either using sim time, or not.
