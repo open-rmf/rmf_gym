@@ -33,5 +33,5 @@ colcon build --packages-select rmf_gym_worlds
 
 We should now be able to run the new world:
 ```
-ros2 launch rmf_gym_worlds corridor.launch.xml
+ros2 launch rmf_gym_worlds $NEW_WORLD.launch.xml
 ``` 
