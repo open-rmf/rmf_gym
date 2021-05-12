@@ -27,7 +27,7 @@ The Blockade Moderator is necessary for the functioning of Traffic Light Fleet a
 * [Further Info](https://osrf.github.io/ros2multirobotbook/rmf-core.html?highlight=traffic%20light#fleet-adapters)
 
 ### Building Map Server
-The building map server "serves" the floor plan of your system.
+The building map server "serves" the floor plan of your system. You should run this before ruunning  fleet adapters.
 
 * [Where It Is](https://github.com/open-rmf/rmf_gym/blob/main/rmf_gym_worlds/worlds/common.launch.xml#L23-L27)
 * [Further Info](https://github.com/open-rmf/rmf_traffic_editor/#rmf_traffic_editor)
