@@ -2,8 +2,9 @@
 
 <launch>
   <arg name="task_timeout" default="80.0"/>
+  <arg name="no_simulation" default="false"/>
 
-  <executable cmd="gz physics -u 0" output="both"/>
+  <executable unless=$(var no_simulation) cmd="gz physics -u 0" output="both"/>
 
   <!-- Tests -->
   <executable cmd="ros2 run rmf_demos_tasks dispatch_loop -s 0_a -f 0_b -n 5 --use_sim_time" output="both"/>
