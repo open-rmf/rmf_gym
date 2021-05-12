@@ -24,6 +24,7 @@ setup(
         'console_scripts': [
           'check_tasks_complete = rmf_gym_tools.check_tasks_complete:main',
           'extract_waypoints = rmf_gym_tools.extract_waypoints:main',
+          'dispatch_loop = rmf_gym_tools.dispatch_loop:main',
           'random_tasks = rmf_gym_tools.random_tasks:main',
           'check_environment = rmf_gym_tools.check_environment:main',
           'get_waypoint_location = rmf_gym_tools.get_waypoint_location:main',

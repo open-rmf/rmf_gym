@@ -55,18 +55,25 @@ Deletes a robot with a given name
 ros2 run rmf_gym_tools despawn_robot -m tinyRobot1
 ```
 
+## dispatch_loop
+Sends a Loop Request at the given waypoints.
+```
+# Send one loop request from 0_a to 0_b that loops exactly once, using sim time
+ros2 run rmf_gym_tools dispatch_loop -s 0_a -f 0_b -n 1 --use_sim_time true
+```
+
 ## random_tasks
 This script repeatedly issues tasks to a given target fleet based on a provided yaml file.
 Currently, only Loop Tasks are available.
 
 ```
 # First, extract the waypoints from a given building
-ros2 run rmf_gym_tools extract_waypoints --building_path rmf_gym_worlds/maps/base/base.building.yaml
+ros2 run rmf_gym_tools extract_waypoints --building_path rmf_gym_worlds/worlds/base/maps/base.building.yaml --output_path .
 # Creates files 0_L1.yml, 0.yml, ...
 
 # Issue random Loops infinitely, using sim time, logging to the folder "logs"
-ros2 run rmf_gym_tools random_tasks --task_type loop --task_config_path 0_L1.yml --use_sim_time --log_label logs
+ros2 run rmf_gym_tools random_tasks --use_sim_time true --task_type loop --task_config_path 0_L1.yml --use_sim_time --log_label logs
 
 # Issue 10 random loops, no sim time. check every 2 seconds, and return with error code 1 if tasks takes more than 200 seconds
-ros2 run rmf_gym_tools random_tasks --task_type loop --task_config_path 0_L1.yml --task_count 10 --task_check_period 2.0 --task_check_timeout 200.0
+ros2 run rmf_gym_tools random_tasks --use_sim_time false --task_type loop --task_config_path 0_L1.yml --task_count 10 --task_check_period 2.0 --task_check_timeout 200.0
 ```

@@ -55,6 +55,8 @@ class TaskGenerator:
 
     # Get all input parameters
     parser = argparse.ArgumentParser()
+    parser.add_argument("--use_sim_time", required=True, type=bool, 
+                        help='Use sim time')
     parser.add_argument("--task_type", required=True, type=str,
                         help='Type of Task we are issuing')
     parser.add_argument("--task_config_path", required=True, type=str,
@@ -63,8 +65,6 @@ class TaskGenerator:
                         help='Priority for publishing tasks, default: 0')
     parser.add_argument("--task_count", type=int, default=None,
                         help='Number of tasks to issue, default: None ( infinite )')
-    parser.add_argument("--use_sim_time", action="store_true",
-                        help='Use sim time, default: false')
     parser.add_argument("--submit_task_topic", type=str, default="submit_task",
                         help='Topic to submit tasks. default: submit_task')
     parser.add_argument("--get_task_topic", type=str, default="get_tasks",
