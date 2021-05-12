@@ -9,7 +9,7 @@
 
   <!-- Spawn Robots -->
   <executable cmd="ros2 run rmf_gym_tools spawn_robot_at_waypoint 
-    --building_path $(var building_path) --nav_graph_path $(var nav_graph_folder)/0.yaml --sdf_path $(var model_path)/TinyRobot/model.sdf --waypoint_name 0_a  --robot_name tinyRobot1" output="both"/>
+    --building_path $(var building_path) --nav_graph_path $(var nav_graph_folder)/0.yaml --sdf_path $(var model_path)/TinyRobot/model.sdf --waypoint_name 0_b  --robot_name tinyRobot1" output="both"/>
 
 </launch>
 
