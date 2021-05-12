@@ -7,6 +7,8 @@ First, you should have a look at the structure of launch files in [rmf_demos](ht
 ## Explaining the Base World
 There are important components that make up any RMF world. Do follow all the links to get a good understanding.
 
+Note that the two repos have different launch structures for their different purposes: the fundamental components are the same.
+
 A World is put together by launching a variety of processes, each doing an important task, as described below. 
 
 For using the Base world ( and others ) with real hardware, see [TODO].
