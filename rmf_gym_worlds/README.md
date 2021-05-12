@@ -42,7 +42,7 @@ We should see the two robots looping in a cross-shape. When 10 Loops have been c
 
 If the test case fails, the command will return 1. This happens when a timeout is reached. You can use this in our testing infrastructure to carry out contingency measures.
 
-For more details information, have a look at [Examining the Base World](/docs/rmf_structure/02-examining-the-base-world).
+For more details information, have a look at [Examining the Base World](/docs/rmf_structure/02-examining-the-base-world.md).
 
 ## Trying out other worlds
 The same commands above should translate to testing other worlds as well, by replacing `base` with your target world.
