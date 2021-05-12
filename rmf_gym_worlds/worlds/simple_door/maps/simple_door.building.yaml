@@ -16,8 +16,10 @@ crowd_sim:
   update_time_step: 0.1
 levels:
   L1:
+    doors:
+      - [12, 13, {motion_axis: [1, start], motion_degrees: [3, 90], motion_direction: [2, 1], name: [1, door1], plugin: [1, normal], type: [1, double_sliding]}]
     drawing:
-      filename: base.png
+      filename: simple_door.png
     elevation: 0
     flattened_x_offset: 0
     flattened_y_offset: 0
@@ -25,10 +27,9 @@ levels:
       - parameters: {texture_name: [1, blue_linoleum], texture_rotation: [3, 0], texture_scale: [3, 1]}
         vertices: [7, 4, 5, 6]
     lanes:
-      - [10, 11, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 1], orientation: [1, ""]}]
-      - [8, 12, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 0], orientation: [1, ""]}]
-      - [12, 13, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 0], orientation: [1, ""]}]
-      - [13, 9, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 0], orientation: [1, ""]}]
+      - [8, 10, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 0], orientation: [1, ""]}]
+      - [10, 11, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 0], orientation: [1, ""]}]
+      - [11, 9, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 0], orientation: [1, ""]}]
     layers:
       {}
     measurements:
@@ -45,10 +46,10 @@ levels:
       - [126.743, 38.206, 0, ""]
       - [385.824, 744.09, 0, 0_a, {is_charger: [4, true]}]
       - [2714.55, 744.09, 0, 0_b]
-      - [1554.321, 416.139, 0, 1_a, {is_charger: [4, true]}]
-      - [1554.321, 1179.52, 0, 1_b]
       - [1383.456, 744.09, 0, "", {is_parking_spot: [4, true]}]
       - [1716.918, 744.09, 0, "", {is_parking_spot: [4, true]}]
+      - [1541.208, 535.956, 0, ""]
+      - [1541.208, 927.924, 0, ""]
     walls:
       - [7, 6, {alpha: [3, 1], texture_name: [1, default]}]
       - [6, 5, {alpha: [3, 1], texture_name: [1, default]}]
