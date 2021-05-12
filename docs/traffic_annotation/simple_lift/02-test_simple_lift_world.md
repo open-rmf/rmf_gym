@@ -23,7 +23,7 @@ colcon build --packages-select rmf_gym_worlds
 
 ros2 launch rmf_gym_worlds simple_lift.launch.xml
 ros2 launch rmf_gym_worlds simple_lift_sim_setup.launch.xml
-ros2 launch rmf_gym_worlds test_simple_lift_simple_loop.launch.xml
+ros2 launch rmf_gym_worlds test_simple_lift_simple_loop.launch.xml use_sim_time:=true
 ```
 
 Congratulations! You have made a new RMF world with a lift.
