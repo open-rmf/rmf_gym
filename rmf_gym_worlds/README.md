@@ -67,11 +67,12 @@ After you have configured correctly, you can run the launch file
 sudo apt install wmctrl
 
 ros2 launch rmf_gym_worlds run_tests.launch.xml
-ros2 launch rmf_gym_worlds run_tests.launch.xml headles:=true           # For non-GUI setups
+ros2 launch rmf_gym_worlds run_tests.launch.xml headless:=true           # For non-GUI setups
 ros2 launch rmf_gym_worlds run_tests.launch.xml no_simulation:=true     # do not run gazebo
 ```
 
 You should see each of the tests run in sequence:
+
 ![auto_run_tests.gif](/docs/gifs/auto_run_tests.gif)
 
 ## Tutorials
