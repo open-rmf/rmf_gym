@@ -15,11 +15,11 @@ The package [`rmf_gym_worlds`](/rmf_gym_worlds) contains many RMF worlds that ar
 
 ![base.gif](/docs/gifs/base.gif)
 
-It is easy to tweak the gym worlds to include your hardware for testing, by physically running your robot alongside other simulated robots / infrastructure. 
+It is easy to tweak the gym worlds to [include your hardware for testing](/docs/hardware_integration/mobile_robot/magni/05-hardware-testing.md), by physically running your robot alongside other simulated robots / infrastructure. 
 
 ![hardware_in_the_loop.gif](/docs/gifs/hardware_in_the_loop.gif)
 
-There are also tools to run tests hands-free, by automating all launch processes.
+There are also tools to [run tests hands-free](/rmf_gym_worlds/README.md), by automating all launch processes.
 
 ![auto_run_tests.gif](/docs/gifs/auto_run_tests.gif)
 
