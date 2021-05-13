@@ -79,9 +79,9 @@ On your workstaion, launch the free fleet server. For example:
 ros2 launch rmf_gym_worlds magni_free_fleet_server.launch.xml
 ```
 
-Now, launch the `simple_door` world:
+Now, launch the `simple_door` world, without using sim time:
 ```
-ros2 launch rmf_gym_worlds simple_door.launch.xml
+ros2 launch rmf_gym_worlds simple_door.launch.xml use_sim_time:=false
 ```
 
 You should hopefully see the following beautiful sight:
