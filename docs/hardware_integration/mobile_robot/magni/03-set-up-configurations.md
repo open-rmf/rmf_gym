@@ -18,7 +18,7 @@ roslaunch ff_examples_ros1 fake_client.launch.xml
 You should see some updates on the `fake_server` logs:
 
 ```
-found new robot: fake_robot
+registered a new robot: fake_robot
 ```
 
 # Use Real launch files
@@ -39,7 +39,7 @@ roslaunch [your-free-fleet-client-package] free_fleet_client.xml
 
 We should hopefully see an update on the `free_fleet_server` logs:
 ```
-found new robot: ubiquityrobot
+registered a new robot: ubiquityrobot
 ```
 
 And we should be able to echo `fleet_states` as output by the free fleet server:
@@ -108,3 +108,6 @@ ip a
     </Domain>
 </CycloneDDS>
 ```
+
+### The domain ID of client and server must be the same
+Check that the two configuration files have the same `dds_domain` value.
