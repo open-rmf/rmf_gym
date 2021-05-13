@@ -10,4 +10,8 @@ Here are some tutorials on how to develop for RMF. These present a practical app
 
 We assume that you have already installed ROS2 and RMF in some form on your workstation.
 
-Once more tutorials are developed, I will put a recommended sequence to view the tutorials here.
+I would recommend we look at the tutorials in this order:
+* Understand the [structure](https://github.com/open-rmf/rmf_gym/tree/main/docs/rmf_structure) of RMF.
+* Get familiar with how to [create a new RMF world](https://github.com/open-rmf/rmf_gym/tree/main/docs/traffic_annotation/simple_lift).
+* Create some worlds and some tests ( and submit tests that fail as issues! )
+* Try to add a [physical robot](https://github.com/open-rmf/rmf_gym/tree/main/docs/hardware_integration/mobile_robot/magni).
