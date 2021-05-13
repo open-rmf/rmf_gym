@@ -72,7 +72,7 @@ ros2 launch rmf_gym_worlds run_tests.launch.xml no_simulation:=true     # do not
 ```
 
 You should see each of the tests run in sequence:
-![auto_run_tests.gif](/docs/auto_run_tests.gif)
+![auto_run_tests.gif](/docs/gifs/auto_run_tests.gif)
 
 ## Tutorials
 There are tutorials which you can work through to get a practical approach to RMF. You can see them [here](/docs).
