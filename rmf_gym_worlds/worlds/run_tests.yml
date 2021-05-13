@@ -1,11 +1,11 @@
 worlds:
-  #base:
-    #base_sim_setup:
-      #- all
+  base:
+    base_sim_setup:
+      - all
 
-  #simple_door:
-    #simple_door_sim_setup:
-      #- test_simple_door_simple_loop
+  simple_door:
+    simple_door_sim_setup:
+      - test_simple_door_simple_loop
 
   simple_lift:
     simple_lift_sim_setup_L1:
