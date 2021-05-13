@@ -19,7 +19,7 @@ It is easy to tweak the gym worlds to [include your hardware for testing](/docs/
 
 ![hardware_in_the_loop.gif](/docs/gifs/hardware_in_the_loop.gif)
 
-There are also tools to [run tests hands-free](/rmf_gym_worlds/README.md/#Automated-testing), by automating all launch processes.
+There are also tools to [run tests hands-free](/rmf_gym_worlds/README.md/#Automated-testing), by automating all launch processes. ( The following gif is running hands free ! )
 
 ![auto_run_tests.gif](/docs/gifs/auto_run_tests.gif)
 
