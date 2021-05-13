@@ -20,7 +20,8 @@ It is easy to tweak the gym worlds to include your hardware for testing, by phys
 ![hardware_in_the_loop.gif](/docs/gifs/hardware_in_the_loop.gif)
 
 There are also tools to run tests hands-free, by automating all launch processes.
-![auto_run_tests.gif](/docs/auto_run_tests.gif)
+
+![auto_run_tests.gif](/docs/gifs/auto_run_tests.gif)
 
 ## rmf_gym_tools
 The package [`rmf_gym_tools`](/rmf_gym_tools) contain scripts and automation that help with testing RMF. These can be run standalone or put into [test launch files](/rmf_gym_worlds/worlds/base/tests). You can send pre-determined tasks to replicate tricky scenarios, or infinitely send random tasks to see how long the system lasts.
