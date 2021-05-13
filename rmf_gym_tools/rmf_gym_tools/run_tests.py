@@ -15,11 +15,15 @@
 # limitations under the License.
 
 import yaml
+import psutil
+import time
 import sys
+import signal
 import os
 import fnmatch
 import argparse
 import collections
+import subprocess
 from pathlib import Path
 import rclpy
 from rclpy.node import Node
@@ -51,6 +55,8 @@ class GymTestNode(Node):
     self.declare_parameter('failover_mode')
     self.declare_parameter('no_simulation')
     self.declare_parameter('headless')
+    self.rmf_process = None
+    self.test_process = None
 
     config_file_path = self.get_parameter(
         'config_file').get_parameter_value().string_value
@@ -77,19 +83,44 @@ class GymTestNode(Node):
     else:
       self.get_logger().info("All test files found")
 
-    self.run_tests()
-
   def run_tests(self):
     for world in self.params_config.config_file['worlds']:
       tests = self.params_config.config_file['worlds'][world]
       for fixture_name, test_list in tests.items():
         if test_list[0] == 'all':
-          test_list = fnmatch.filter(os.listdir(f"{self.params_config.test_launch_path}/{world}/tests"), "test_*.launch.xml")
+          test_list = fnmatch.filter(os.listdir(
+              f"{self.params_config.test_launch_path}/{world}/tests"), "test_*.launch.xml")
           test_list = [x.replace('.launch.xml', '') for x in test_list]
 
         for test_name in test_list:
-          self.get_logger().info(f"\n\nTesting World: {world}\nFixture: {fixture_name}\nTest: {test_name}")
-          self.get_logger().info(f"Done.\n\n")
+          self.get_logger().info(
+              f"\n\nTesting World: {world}\nFixture: {fixture_name}\nTest: {test_name}")
+
+          self.get_logger().info(
+              f"Launching {world} World..")
+          self.rmf_process = subprocess.Popen(
+              ['ros2', 'launch', 'rmf_gym_worlds',
+               f"{world}.launch.xml", f"headless:={self.params_config.headless}"],
+              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+          self.get_logger().info(
+              f"Spawning {fixture_name} Fixture..")
+          subprocess.Popen(
+              ['ros2', 'launch', 'rmf_gym_worlds',
+               f"{fixture_name}.launch.xml"],
+              stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False).communicate()
+
+          if not self.params_config.headless:
+            subprocess.Popen(['wmctrl', '-a', 'rviz']).communicate()
+
+          self.get_logger().info(
+              f"Running {test_name} Test..")
+          self.test_process = subprocess.Popen(
+              ['ros2', 'launch', 'rmf_gym_worlds',
+               f"{test_name}.launch.xml",
+               f"use_sim_time:={self.params_config.use_sim_time}"], shell=False).communicate()
+
+          self.reset()
 
   def check_params_config(self):
     success = True
@@ -99,7 +130,8 @@ class GymTestNode(Node):
       for fixture_name, test_list in tests.items():
         # Check if fixture exists
         try:
-          open(f"{self.params_config.test_launch_path}/{world}/tests/{fixture_name}.launch.xml")
+          open(
+              f"{self.params_config.test_launch_path}/{world}/tests/{fixture_name}.launch.xml")
         except FileNotFoundError as e:
           self.get_logger().error(f"Missing Fixture: {fixture_name}")
           success = False
@@ -107,17 +139,36 @@ class GymTestNode(Node):
         for test_name in test_list:
           if test_name != "all":
             try:
-              open(f"{self.params_config.test_launch_path}/{world}/tests/{test_name}.launch.xml")
+              open(
+                  f"{self.params_config.test_launch_path}/{world}/tests/{test_name}.launch.xml")
             except FileNotFoundError as e:
               self.get_logger().error(f"Missing Test: {test_name}")
               success = False
 
       return success
 
+  def reset(self):
+    self.get_logger().info("Terminating test instance..")
+    if self.rmf_process is not None:
+      for child in psutil.Process(self.rmf_process.pid).children(recursive=True):
+        child.terminate()
+        child.wait()
+      self.rmf_process.terminate()
+      self.rmf_process.wait()
+
+    self.get_logger().info("Done.")
+
+
 def main(argv=sys.argv):
   rclpy.init()
-  test_node = GymTestNode()
-
+  try:
+    test_node = GymTestNode()
+    test_node.run_tests()
+    test_node.reset()
+  except psutil.NoSuchProcess:
+    pass
+  except Exception as e:
+    test_node.get_logger().error(e.__str__())
 
 if __name__ == '__main__':
   main(sys.argv)

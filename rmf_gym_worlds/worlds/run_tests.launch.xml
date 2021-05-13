@@ -1,7 +1,7 @@
 <?xml version='1.0' ?>
 
 <launch>
-  <arg name="config_file" />
+  <arg name="config_file" default="$(find-pkg-share rmf_gym_worlds)/worlds/run_tests.yml"/>
   <arg name="test_launch_path" default="$(find-pkg-share rmf_gym_worlds)/worlds"/>
   <arg name="use_ignition" default="0"/>
   <arg name="gazebo_version" default="11"/>

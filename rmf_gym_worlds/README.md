@@ -18,6 +18,8 @@ rmf_gym_worlds
     ...                                     # Other test worlds
   common.launch.xml                         # Common launch nodes
   simulation.launch.xml                     # Simulation launch nodes
+  run_tests.launch.xml                      # Launch Automated Testing
+  run_tests.yml                             # Configuration file for automated testing
 ```
 
 # The base world
@@ -46,6 +48,31 @@ For more details information, have a look at [Examining the Base World](/docs/rm
 
 ## Trying out other worlds
 The same commands above should translate to testing other worlds as well, by replacing `base` with your target world.
+
+## Automated Testing
+You can automate the steps you took in testing out the `Base World`, other worlds and your own created worlds. You will first configure [`run_tests.yml`](./worlds/run_tests.yml) with the following structure:
+```
+worlds:
+  [world_name]:
+    [setup launch file name]:
+      - [List of tests] / all     "All" will run all tests
+      - ...
+  ...
+```
+
+After you have configured correctly, you can run the launch file
+```
+# If you run with headless:=false ( default ), you can see the rviz and gazebo windows
+# If so, you will need wmctrl dependency
+sudo apt install wmctrl
+
+ros2 launch rmf_gym_worlds run_tests.launch.xml
+ros2 launch rmf_gym_worlds run_tests.launch.xml headles:=true           # For non-GUI setups
+ros2 launch rmf_gym_worlds run_tests.launch.xml no_simulation:=true     # do not run gazebo
+```
+
+You should see each of the tests run in sequence:
+![auto_run_tests.gif](/docs/auto_run_tests.gif)
 
 ## Tutorials
 There are tutorials which you can work through to get a practical approach to RMF. You can see them [here](/docs).

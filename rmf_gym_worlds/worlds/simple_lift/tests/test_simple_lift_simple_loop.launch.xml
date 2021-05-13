@@ -1,12 +1,12 @@
 <?xml version='1.0' ?>
 
 <launch>
-  <arg name="task_timeout" default="200.0"/>
+  <arg name="task_timeout" default="250.0"/>
 
   <executable if="$(var use_sim_time)" cmd="gz physics -u 0" output="both"/>
 
   <!-- Tests -->
-  <executable cmd="ros2 run rmf_gym_tools dispatch_loop -s 0_a -f 0_b -n 5 --use_sim_time $(var use_sim_time)" output="both"/>
+  <executable cmd="ros2 run rmf_gym_tools dispatch_loop -s 0_a -f 0_b -n 1 --use_sim_time $(var use_sim_time)" output="both"/>
   <executable cmd="ros2 run rmf_gym_tools check_tasks_complete --task_check_timeout=$(var task_timeout)" output="both"/>
 
 </launch>
