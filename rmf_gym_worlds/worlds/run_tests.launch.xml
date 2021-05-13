@@ -1,0 +1,22 @@
+<?xml version='1.0' ?>
+
+<launch>
+  <arg name="config_file" />
+  <arg name="test_launch_path" default="$(find-pkg-share rmf_gym_worlds)/worlds"/>
+  <arg name="use_ignition" default="0"/>
+  <arg name="gazebo_version" default="11"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="failover_mode" default="false"/>
+  <arg name="no_simulation" default="false"/>
+  <arg name="headless" default="false"/>
+
+  <node pkg="rmf_gym_tools" exec="run_tests" output="both">
+    <param name="config_file" value="$(var config_file)"/>
+    <param name="test_launch_path" value="$(var test_launch_path)"/>
+    <param name="use_ignition" value="$(var use_ignition)"/>
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+    <param name="failover_mode" value="$(var failover_mode)"/>
+    <param name="no_simulation" value="$(var no_simulation)"/>
+    <param name="headless" value="$(var headless)"/>
+  </node>
+</launch>

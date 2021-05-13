@@ -31,6 +31,7 @@ setup(
           'spawn_robot = rmf_gym_tools.spawn_robot:main',
           'despawn_robot = rmf_gym_tools.despawn_robot:main',
           'spawn_robot_at_waypoint = rmf_gym_tools.spawn_robot_at_waypoint:main',
+          'run_tests = rmf_gym_tools.run_tests:main',
         ],
     },
 )
