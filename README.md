@@ -23,6 +23,9 @@ There are also tools to [run automated tests](/rmf_gym_worlds/README.md/#Automat
 
 ![auto_run_tests.gif](/docs/gifs/auto_run_tests.gif)
 
+Tools are included to [spawn your robot on different locations](/rmf_gym_tools/README.md#spawn-robot) for more convenient and reproducible testing.
+![respawn_robots.gif](/docs/gif/respawn_robots.gif)
+
 ## rmf_gym_tools
 The package [`rmf_gym_tools`](/rmf_gym_tools) contain scripts and automation that help with testing RMF. These can be run standalone or put into [test launch files](/rmf_gym_worlds/worlds/base/tests). You can send pre-determined tasks to replicate tricky scenarios, or infinitely send random tasks to see how long the system lasts.
 
