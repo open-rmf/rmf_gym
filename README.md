@@ -23,7 +23,7 @@ There are also tools to [run automated tests](/rmf_gym_worlds/README.md/#Automat
 
 ![auto_run_tests.gif](/docs/gifs/auto_run_tests.gif)
 
-Tools are included to [spawn your robot based on waypoint labels](/rmf_gym_tools/README.md#spawn-robot) for more convenient and reproducible testing.
+Tools are included to [spawn your robot based on waypoint labels](/rmf_gym_tools/README.md#spawn_robot) for more convenient and reproducible testing.
 ![respawn_robots.gif](/docs/gifs/respawn_robots.gif)
 
 ## rmf_gym_tools
