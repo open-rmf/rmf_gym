@@ -38,16 +38,19 @@ def main(argv=sys.argv):
   parsed_args = parser.parse_args(argv[1:])
 
   subprocess.Popen(['ros2', 'run', 'rmf_gym_tools', 'get_waypoint_location',
-    '--building_path', parsed_args.building_path,
-    '--nav_graph_path', parsed_args.nav_graph_path,
-    '--waypoint_name', parsed_args.waypoint_name,
-    '--output_path', f"/tmp/get_waypoints/{parsed_args.waypoint_name}"]).communicate()
+                    '--building_path', parsed_args.building_path,
+                    '--nav_graph_path', parsed_args.nav_graph_path,
+                    '--waypoint_name', parsed_args.waypoint_name,
+                    '--output_path', f"/tmp/get_waypoints/{parsed_args.waypoint_name}"]).communicate()
 
   with open(f"/tmp/get_waypoints/{parsed_args.waypoint_name}/{parsed_args.waypoint_name}.yml") as config_file:
     graph_yaml = yaml.load(config_file, Loader=yaml.FullLoader)
 
-  subprocess.Popen(['gz', 'model',  '-f', parsed_args.sdf_path, '-m', parsed_args.robot_name,
-                   '-x', str(graph_yaml['x']), '-y', str(graph_yaml['y']), '-z', str(graph_yaml['z'])]).communicate()
+  subprocess.Popen(['ros2', 'run', 'rmf_gym_tools', 'spawn_robot',
+                    '--config_path', f"/tmp/get_waypoints/{parsed_args.waypoint_name}/{parsed_args.waypoint_name}.yml",
+                    '--sdf_path', f"{parsed_args.sdf_path}",
+                    '--robot_name', f"{parsed_args.robot_name}"]).communicate()
+
 
 if __name__ == '__main__':
   main(sys.argv)

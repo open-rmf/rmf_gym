@@ -15,11 +15,15 @@
 # limitations under the License.
 
 import yaml
+import psutil
 import sys
+import time
 import subprocess
 import argparse
 import collections
 from pathlib import Path
+import rclpy
+from rclpy.node import Node
 
 
 def main(argv=sys.argv):
@@ -36,8 +40,22 @@ def main(argv=sys.argv):
   with open(parsed_args.config_path) as config_file:
     graph_yaml = yaml.load(config_file, Loader=yaml.FullLoader)
 
-  subprocess.Popen(['gz', 'model',  '-f', parsed_args.sdf_path, '-m', parsed_args.robot_name,
-                   '-x', str(graph_yaml['x']), '-y', str(graph_yaml['y']), '-z', str(graph_yaml['z'])]).communicate()
+  while True:
+    out, err = subprocess.Popen(
+        ['gz', 'topic'], stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+    if "not running" in str(err):
+      time.sleep(2)
+      print("Gazebo not running. Retrying..")
+      continue
+    else:
+      break
+
+  subprocess.Popen(
+      ['gz', 'model',  '-f', parsed_args.sdf_path, '-m', parsed_args.robot_name,
+       '-x', str(graph_yaml['x']), '-y', str(graph_yaml['y']), '-z',
+       str(graph_yaml['z'])]).communicate()
+
 
 if __name__ == '__main__':
   main(sys.argv)
+  rclpy.shutdown()
