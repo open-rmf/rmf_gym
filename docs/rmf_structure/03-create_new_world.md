@@ -21,7 +21,7 @@ Then we rename the files themselves:
 ```
 sudo apt install rename -y
 cd $NEW_WORLD
-find . -name '*base*' -exec rename base "$NEW_WORLD" {} +
+find . -name '*base*' -exec rename -v "s/base/$NEW_WORLD/i" {} \;
 ```
 
 Rebuild! From the workspace
