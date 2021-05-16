@@ -12,3 +12,7 @@ worlds:
       - all
     simple_lift_sim_setup:
       - all
+
+  simple_deconfliction:
+    simple_deconfliction_sim_setup:
+      - all

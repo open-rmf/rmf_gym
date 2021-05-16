@@ -1,0 +1,64 @@
+crowd_sim:
+  agent_groups:
+    - {agents_name: [], agents_number: 0, group_id: 0, profile_selector: external_agent, state_selector: external_static, x: 0, y: 0}
+  agent_profiles:
+    - {ORCA_tau: 1, ORCA_tauObst: 0.4, class: 1, max_accel: 0, max_angle_vel: 0, max_neighbors: 10, max_speed: 0, name: external_agent, neighbor_dist: 5, obstacle_set: 1, pref_speed: 0, r: 0.25}
+  enable: 0
+  goal_sets:
+    []
+  model_types:
+    []
+  obstacle_set: {class: 1, file_name: L1_navmesh.nav, type: nav_mesh}
+  states:
+    - {final: 1, goal_set: -1, name: external_static, navmesh_file_name: ""}
+  transitions:
+    []
+  update_time_step: 0.1
+levels:
+  L1:
+    drawing:
+      filename: simple_deconfliction.png
+    elevation: 0
+    flattened_x_offset: 0
+    flattened_y_offset: 0
+    floors:
+      - parameters: {texture_name: [1, blue_linoleum], texture_rotation: [3, 0], texture_scale: [3, 1]}
+        vertices: [7, 4, 5, 6]
+    lanes:
+      - [8, 10, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 0], orientation: [1, ""]}]
+      - [10, 11, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 0], orientation: [1, ""]}]
+      - [11, 9, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 0], orientation: [1, ""]}]
+      - [10, 12, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 0], orientation: [1, ""]}]
+      - [12, 13, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 0], orientation: [1, ""]}]
+      - [13, 11, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 0], orientation: [1, ""]}]
+      - [14, 15, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 1], orientation: [1, ""]}]
+    layers:
+      {}
+    measurements:
+      - [1, 0, {distance: [3, 9.315]}]
+      - [2, 3, {distance: [3, 20.089]}]
+    vertices:
+      - [42.39, 1030.084, 0, ""]
+      - [39.481, 38.206, 0, ""]
+      - [225.64, 1623.466, 0, ""]
+      - [2624.464, 1625.219, 0, ""]
+      - [3004.423, 37.653, 0, ""]
+      - [3004.655, 1570.354, 0, ""]
+      - [125.203, 1571.918, 0, ""]
+      - [126.743, 38.206, 0, ""]
+      - [385.824, 744.09, 0, 0_a, {is_charger: [4, true]}]
+      - [2714.55, 744.09, 0, 0_b]
+      - [914.091, 737.676, 0, "", {is_parking_spot: [4, false]}]
+      - [2134.513, 737.676, 0, "", {is_parking_spot: [4, false]}]
+      - [912.7089999999999, 502.714, 0, "", {is_parking_spot: [4, true]}]
+      - [2135.895, 502.714, 0, "", {is_parking_spot: [4, true]}]
+      - [2717.586, 766.441, 0, 1_b, {is_charger: [4, true]}]
+      - [386.612, 766.441, 0, 1_a]
+    walls:
+      - [7, 6, {alpha: [3, 1], texture_name: [1, default]}]
+      - [6, 5, {alpha: [3, 1], texture_name: [1, default]}]
+      - [5, 4, {alpha: [3, 1], texture_name: [1, default]}]
+      - [4, 7, {alpha: [3, 1], texture_name: [1, default]}]
+lifts:
+  {}
+name: building
