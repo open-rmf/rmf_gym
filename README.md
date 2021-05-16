@@ -32,7 +32,9 @@ The package [`rmf_gym_tools`](/rmf_gym_tools) contain scripts and automation tha
 ## Vagrant Machine Image
 A `Vagrantfile` is provided to create a Virtual Machine with `rmf_gym` all set up. This could be a quick way to try out `rmf_gym`, although there is a pretty significant performance penalty to it.
 
-Note that some devices might encounter a GLX context error when running graphical interfaces like `rviz` and `gazebo` but others might not. You should check that both your container / VM and your host install the same graphics drivers. 
+You should check that both your container / VM and your host install the same graphics drivers. For example, if you use
+nvidia graphics drivers on your host, you should use that as well in the vagrant VM. Otherwise, you might encounter GLXContext errors when running GUI apps like `gazebo`, or `rviz`.
+
 [Install Vagrant](https://www.vagrantup.com/docs/installation) and [install VirtualBox](https://www.virtualbox.org/wiki/Linux_Downloads), then run:
 ```
 # For virtualbox, you might need to install python
