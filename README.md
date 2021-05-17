@@ -13,7 +13,7 @@ The practical tutorials can be found [here](/docs).
 ## rmf_gym_worlds
 The package [`rmf_gym_worlds`](/rmf_gym_worlds) contains many RMF worlds that are optimized for focused simulation testing. There are also tutorials that teach you how to craft your own testing world. They are also standard in size to help hardware in the loop testing.
 
-![base.gif](/docs/gifs/base.gif)
+![simple_deconfliction.gif](/docs/gifs/simple_deconfliction.gif)
 
 It is easy to tweak the gym worlds to [include your hardware for testing](/docs/hardware_integration/mobile_robot/magni/05-hardware-testing.md), by physically running your robot alongside other simulated robots / infrastructure. 
 
@@ -77,5 +77,8 @@ ros2 launch rmf_demos office.launch.xml headless:=1
 
 ### simple_lift
 ![simple_lift.gif](/docs/gifs/simple_lift.gif)
+
+### simple_deconfliction
+![simple_lift.gif](/docs/gifs/simple_deconfliction.gif)
 
 More to come!
