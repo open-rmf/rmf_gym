@@ -57,6 +57,8 @@ class GymTestNode(Node):
     self.declare_parameter('headless')
     self.rmf_process = None
     self.test_process = None
+    self.get_task_list_srv = self.node.create_client(
+            GetTaskList, '/get_tasks')
 
     config_file_path = self.get_parameter(
         'config_file').get_parameter_value().string_value
@@ -82,6 +84,13 @@ class GymTestNode(Node):
       sys.exit(1)
     else:
       self.get_logger().info("All test files found")
+      
+  def _get_task_srv_is_available(self):
+    if not self.get_task_list_srv.wait_for_service(timeout_sec=3.0):
+      self.get_logger().error('Task getting service is not available')
+      return False
+    else:
+      return True
 
   def run_tests(self):
     for world in self.params_config.config_file['worlds']:
@@ -109,6 +118,12 @@ class GymTestNode(Node):
 
               self.get_logger().info(
                   f"Spawning {fixture_name} Fixture..")
+              
+              # Wait for the get_task service to be available, otherwise we might spawn the robot too early
+              while not self._get_task_srv_is_available():
+                self.get_logger().info("Waiting for backend to be ready..")
+                time.sleep(2)
+                
               subprocess.Popen(
                   ['ros2', 'launch', 'rmf_gym_worlds',
                    f"{fixture_name}.launch.xml"],
