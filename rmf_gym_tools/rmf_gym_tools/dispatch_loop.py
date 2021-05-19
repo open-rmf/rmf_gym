@@ -25,6 +25,7 @@ from rclpy.node import Node
 from rclpy.parameter import Parameter
 from rmf_task_msgs.srv import SubmitTask
 from rmf_task_msgs.msg import TaskType, Loop
+from rmf_task_msgs.srv import GetTaskList
 
 ###############################################################################
 
