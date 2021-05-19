@@ -78,7 +78,8 @@ class AllTasksCompleteCheck:
       if not self._get_task_srv_is_available:
         time.sleep(1)
         continue
-      if time_elapsed > self.config.task_check_timeout:
+        
+      if time_elapsed > 10:
         raise Exception(f"A task was never received.")
       
       req_msg = GetTaskList.Request()
@@ -94,9 +95,10 @@ class AllTasksCompleteCheck:
         break
       else:
         self.node.get_logger().info(f"Waiting for a task to be issued. ({time_elapsed} sec elapsed)")
-        time.sleep(self.config.task_check_period)
-        time_elapsed += self.config.task_check_period
-
+        time.sleep(1)
+        time_elapsed += 1
+    
+    time_elapsed = 0
     while True:
       time.sleep(self.config.task_check_period)
       time_elapsed += self.config.task_check_period
