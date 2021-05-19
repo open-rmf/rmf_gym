@@ -100,7 +100,7 @@ class TaskRequester:
                     'Request was successfully submitted '
                     f'and assigned task_id: [{assigned_task_id}]')
                 
-                for i in range(10): # 5 Retries to see successful fleet assignment
+                for i in range(5): # 5 Retries to see successful fleet assignment
                     self.node.get_logger().info("Checking that Task was taken by some fleet..")
                     future = self.get_task_list_srv.call_async(GetTaskList.Request())
                     rclpy.spin_until_future_complete(self.node, future, timeout_sec=1.0)
@@ -118,11 +118,11 @@ class TaskRequester:
         
     def main(self):
         rclpy.spin_once(self.node, timeout_sec=1.0)
-        req_msg = self.generate_task_req_msg()
-        print(f"\nGenerated loop request: \n {req_msg}\n")
-        self.node.get_logger().info("Submitting Loop Request")
 
         for i in range(5):
+            req_msg = self.generate_task_req_msg()
+            print(f"\nGenerated loop request: \n {req_msg}\n")
+            self.node.get_logger().info("Submitting Loop Request")
             success = self.submit_task_msg(req_msg)
             if success:
                 return
