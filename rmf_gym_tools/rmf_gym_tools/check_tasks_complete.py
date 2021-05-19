@@ -127,12 +127,13 @@ class AllTasksCompleteCheck:
 
       elif not response.success:
         raise Exception('Something wrong happened getting tasks')
+       
+      self.node.get_logger().info(f"Active Tasks: {response.active_tasks}")
+      self.node.get_logger().info(f"Terminated Tasks: {response.terminated_tasks}")
 
       if response.active_tasks:
         self.node.get_logger().info(
             f'waiting for tasks {[x.task_id for x in response.active_tasks]} to complete. ({time_elapsed} sec elapsed)')
-        self.node.get_logger().info(f"Active Tasks: {response.active_tasks}")
-        self.node.get_logger().info(f"Terminated Tasks: {response.terminated_tasks}")
       else:
         self.node.get_logger().info(
             f'Tasks completed.')
