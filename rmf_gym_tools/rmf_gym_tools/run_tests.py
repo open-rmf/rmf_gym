@@ -27,6 +27,7 @@ import subprocess
 from pathlib import Path
 import rclpy
 from rclpy.node import Node
+from rmf_task_msgs.srv import GetTaskList
 from rclpy.parameter import Parameter
 
 
