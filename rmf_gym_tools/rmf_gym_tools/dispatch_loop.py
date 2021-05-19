@@ -78,10 +78,6 @@ class TaskRequester:
         return req_msg
 
     def main(self):
-        if not self.submit_task_srv.wait_for_service(timeout_sec=3.0):
-            self.node.get_logger().error('Dispatcher Node is not available')
-            return
-
         rclpy.spin_once(self.node, timeout_sec=1.0)
         req_msg = self.generate_task_req_msg()
         print(f"\nGenerated loop request: \n {req_msg}\n")
