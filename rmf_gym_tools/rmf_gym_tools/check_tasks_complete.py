@@ -93,7 +93,7 @@ class AllTasksCompleteCheck:
       if response.active_tasks:
         break
       else:
-        self.node.get_logger().info(f"Waiting for a task to be issued.")
+        self.node.get_logger().info(f"Waiting for a task to be issued. ({time_elapsed} sec elapsed)")
         time.sleep(self.config.task_check_period)
         time_elapsed += self.config.task_check_period
 
