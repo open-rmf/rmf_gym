@@ -57,7 +57,7 @@ class GymTestNode(Node):
     self.declare_parameter('headless')
     self.rmf_process = None
     self.test_process = None
-    self.get_task_list_srv = self.node.create_client(
+    self.get_task_list_srv = self.create_client(
             GetTaskList, '/get_tasks')
 
     config_file_path = self.get_parameter(
