@@ -111,7 +111,6 @@ class GymTestNode(Node):
                 ['ros2', 'launch', 'rmf_gym_worlds',
                  f"{fixture_name}.launch.xml"],
                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False).communicate(timeout=5)
-            break
           except subprocess.TimeoutExpired:
             pass
 
