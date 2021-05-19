@@ -20,6 +20,7 @@ import time
 import argparse
 
 import rclpy
+import time
 from rclpy.node import Node
 from rclpy.parameter import Parameter
 from rmf_task_msgs.srv import SubmitTask
@@ -52,6 +53,8 @@ class TaskRequester:
         self.node = rclpy.create_node('task_requester')
         self.submit_task_srv = self.node.create_client(
             SubmitTask, '/submit_task')
+        self.get_task_list_srv = self.node.create_client(
+            GetTaskList, '/get_tasks')
 
         if self.args.use_sim_time.lower() == "false" or self.args.use_sim_time == "0":
           pass
@@ -77,12 +80,7 @@ class TaskRequester:
         req_msg.description.priority.value = self.args.priority
         return req_msg
 
-    def main(self):
-        rclpy.spin_once(self.node, timeout_sec=1.0)
-        req_msg = self.generate_task_req_msg()
-        print(f"\nGenerated loop request: \n {req_msg}\n")
-        self.node.get_logger().info("Submitting Loop Request")
-
+    def submit_task_msg(self, req_msg):
         try:
             future = self.submit_task_srv.call_async(req_msg)
             rclpy.spin_until_future_complete(
@@ -90,15 +88,45 @@ class TaskRequester:
             response = future.result()
             if response is None:
                 self.node.get_logger().error('/submit_task srv call failed')
+                return False
             elif not response.success:
                 self.node.get_logger().error(
                     'Dispatcher node failed to accept task')
+                return False
             else:
+                assigned_task_id = response.task_id
                 self.node.get_logger().info(
                     'Request was successfully submitted '
-                    f'and assigned task_id: [{response.task_id}]')
+                    f'and assigned task_id: [{assigned_task_id}]')
+                
+                self.node.get_logger().info("Checking that Task was taken by some fleet..")
+                for i in range(5): # 5 Retries to see successful fleet assignment
+                    req_msg = GetTaskList.Request()
+                    future = self.get_task_list_srv.call_async(req_msg)
+                    rclpy.spin_until_future_complete(self.node, future, timeout_sec=1.0)
+                    response = future.result()
+                    if any([x.task_id ==  assigned_task_id for x in response.active_tasks]):
+                        return True
+                    else:
+                        time.sleep(1)
+                        
         except Exception as e:
             self.node.get_logger().error('Error! Submit Srv failed %r' % (e,))
+            return False
+        
+    def main(self):
+        rclpy.spin_once(self.node, timeout_sec=1.0)
+        req_msg = self.generate_task_req_msg()
+        print(f"\nGenerated loop request: \n {req_msg}\n")
+        self.node.get_logger().info("Submitting Loop Request")
+
+        for i in range(5):
+            success = self.submit_task_msg(req_msg)
+            if success:
+                break
+            else:
+                self.node.get_logger().info("Retrying task submission")
+                        
 
 
 ###############################################################################
