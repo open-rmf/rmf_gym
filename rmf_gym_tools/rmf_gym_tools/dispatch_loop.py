@@ -128,6 +128,7 @@ class TaskRequester:
                 return
             else:
                 continue
+                time.sleep(2)
                         
 
 
