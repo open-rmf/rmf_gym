@@ -86,6 +86,10 @@ class AllTasksCompleteCheck:
       rclpy.spin_until_future_complete(
           self.node, future, timeout_sec=1.0)
       response = future.result()
+      
+      if response is None:
+        continue
+        
       if response.active_tasks:
         break
       else:
