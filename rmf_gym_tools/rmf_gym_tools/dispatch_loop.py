@@ -107,6 +107,7 @@ class TaskRequester:
                     rclpy.spin_until_future_complete(self.node, future, timeout_sec=1.0)
                     response = future.result()
                     if any([x.task_id ==  assigned_task_id for x in response.active_tasks]):
+                        self.node.get_logger().info("Task was successfully assigned.")
                         return True
                     else:
                         time.sleep(1)
