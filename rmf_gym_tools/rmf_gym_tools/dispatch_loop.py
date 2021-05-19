@@ -108,6 +108,7 @@ class TaskRequester:
                     response = future.result()
                     if any([x.task_id ==  assigned_task_id for x in response.active_tasks]):
                         self.node.get_logger().info("Task was successfully assigned.")
+                        self.node.get_logger().info(response.active_tasks)
                         return True
                     else:
                         time.sleep(1)
