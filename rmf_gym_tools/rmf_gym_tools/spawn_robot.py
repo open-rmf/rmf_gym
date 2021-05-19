@@ -43,8 +43,8 @@ def main(argv=sys.argv):
   while True:
     try:
       out, err = subprocess.Popen(
-          ['gz', 'topic'], stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate(timeout=5)
-    except exception.subprocess.TimeoutExpired:
+          ['gz', 'topic'], stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate(timeout=10)
+    except Exception:
         print("gz command seemed to hang. Retrying..")
         continue
     if "not running" in str(err):
