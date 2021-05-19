@@ -110,7 +110,7 @@ class GymTestNode(Node):
             subprocess.Popen(
                 ['ros2', 'launch', 'rmf_gym_worlds',
                  f"{fixture_name}.launch.xml"],
-                stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False).communicate(timeout=5)
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False).communicate(timeout=10)
           except subprocess.TimeoutExpired:
             pass
 
