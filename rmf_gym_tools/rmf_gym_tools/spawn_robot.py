@@ -22,8 +22,6 @@ import subprocess
 import argparse
 import collections
 from pathlib import Path
-import rclpy
-from rclpy.node import Node
 
 
 def main(argv=sys.argv):
@@ -62,4 +60,3 @@ def main(argv=sys.argv):
 
 if __name__ == '__main__':
   main(sys.argv)
-  rclpy.shutdown()
