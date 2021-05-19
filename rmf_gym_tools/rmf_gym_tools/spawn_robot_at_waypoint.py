@@ -46,6 +46,9 @@ def main(argv=sys.argv):
   with open(f"/tmp/get_waypoints/{parsed_args.waypoint_name}/{parsed_args.waypoint_name}.yml") as config_file:
     graph_yaml = yaml.load(config_file, Loader=yaml.FullLoader)
 
+  subprocess.Popen(['ros2', 'run', 'rmf_gym_tools', 'despawn_robot',
+                    '--robot_name', f"{parsed_args.robot_name}"]).communicate()
+  
   subprocess.Popen(['ros2', 'run', 'rmf_gym_tools', 'spawn_robot',
                     '--config_path', f"/tmp/get_waypoints/{parsed_args.waypoint_name}/{parsed_args.waypoint_name}.yml",
                     '--sdf_path', f"{parsed_args.sdf_path}",
