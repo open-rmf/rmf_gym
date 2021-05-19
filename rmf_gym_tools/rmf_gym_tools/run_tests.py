@@ -101,6 +101,7 @@ class GymTestNode(Node):
             try:
               self.get_logger().info(
                   f"Launching {world} World..")
+              subprocess.Popen(['pkill', '-f', 'gz']).communicate()
               self.rmf_process = subprocess.Popen(
                   ['ros2', 'launch', 'rmf_gym_worlds',
                    f"{world}.launch.xml", f"headless:={self.params_config.headless}"],
