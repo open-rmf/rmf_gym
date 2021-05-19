@@ -180,6 +180,7 @@ class GymTestNode(Node):
         child.wait()
       self.rmf_process.terminate()
       self.rmf_process.wait()
+       subprocess.Popen(['ros2', 'daemon', 'stop'])communicate()
 
     self.get_logger().info("Done.")
     time.sleep(2)
