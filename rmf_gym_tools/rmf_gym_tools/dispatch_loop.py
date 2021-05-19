@@ -101,12 +101,12 @@ class TaskRequester:
                     f'and assigned task_id: [{assigned_task_id}]')
                 
                 self.node.get_logger().info("Checking that Task was taken by some fleet..")
-                for i in range(5): # 5 Retries to see successful fleet assignment
+                for i in range(10): # 5 Retries to see successful fleet assignment
                     req_msg = GetTaskList.Request()
                     future = self.get_task_list_srv.call_async(req_msg)
                     rclpy.spin_until_future_complete(self.node, future, timeout_sec=1.0)
                     response = future.result()
-                    if any([x.task_id ==  assigned_task_id for x in response.active_tasks]):
+                    if any([x.task_id ==  assigned_task_id and x.fleet_name for x in response.active_tasks]):
                         self.node.get_logger().info("Task was successfully assigned.")
                         self.node.get_logger().info(response.active_tasks)
                         return True
