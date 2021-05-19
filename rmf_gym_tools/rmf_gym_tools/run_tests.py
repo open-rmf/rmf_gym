@@ -125,8 +125,6 @@ class GymTestNode(Node):
                 self.get_logger().info("Waiting for backend to be ready..")
                 time.sleep(2)
               
-              time.sleep(6) # Hardcoding a pause to prevent possible race conditions
-                
               subprocess.Popen(
                   ['ros2', 'launch', 'rmf_gym_worlds',
                    f"{fixture_name}.launch.xml"],
