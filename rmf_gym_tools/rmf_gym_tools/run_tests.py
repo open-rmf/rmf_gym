@@ -102,13 +102,19 @@ class GymTestNode(Node):
               ['ros2', 'launch', 'rmf_gym_worlds',
                f"{world}.launch.xml", f"headless:={self.params_config.headless}"],
               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-          self.get_logger().info(
-              f"Spawning {fixture_name} Fixture..")
-          subprocess.Popen(
-              ['ros2', 'launch', 'rmf_gym_worlds',
-               f"{fixture_name}.launch.xml"],
-              stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False).communicate()
+          
+          # Sometimes, the process doesn't spawn models and hangs. So we retry
+          for i in range(5):
+            try:
+              self.get_logger().info(
+                  f"Spawning {fixture_name} Fixture..")
+              subprocess.Popen(
+                  ['ros2', 'launch', 'rmf_gym_worlds',
+                   f"{fixture_name}.launch.xml"],
+                  stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False).communicate(timeout=5)
+              break
+            except subprocess.TimeoutExpired:
+              continue
 
           if not self.params_config.headless:
             subprocess.Popen(['wmctrl', '-a', 'rviz']).communicate()
