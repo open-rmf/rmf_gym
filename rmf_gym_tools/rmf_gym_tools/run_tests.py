@@ -93,26 +93,30 @@ class GymTestNode(Node):
           test_list = [x.replace('.launch.xml', '') for x in test_list]
 
         for test_name in test_list:
-          self.get_logger().info(
-              f"\n\nTesting World: {world}\nFixture: {fixture_name}\nTest: {test_name}")
-
-          self.get_logger().info(
-              f"Launching {world} World..")
-          self.rmf_process = subprocess.Popen(
-              ['ros2', 'launch', 'rmf_gym_worlds',
-               f"{world}.launch.xml", f"headless:={self.params_config.headless}"],
-              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-          
           # Sometimes, the process just hangs. So we just time it out
-          try:
+          for i in range(3):
             self.get_logger().info(
-                f"Spawning {fixture_name} Fixture..")
-            subprocess.Popen(
-                ['ros2', 'launch', 'rmf_gym_worlds',
-                 f"{fixture_name}.launch.xml"],
-                stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False).communicate(timeout=10)
-          except subprocess.TimeoutExpired:
-            pass
+                f"\n\nTesting World: {world}\nFixture: {fixture_name}\nTest: {test_name} \n Attempt: {i}")
+            
+            try:
+              self.get_logger().info(
+                  f"Launching {world} World..")
+              self.rmf_process = subprocess.Popen(
+                  ['ros2', 'launch', 'rmf_gym_worlds',
+                   f"{world}.launch.xml", f"headless:={self.params_config.headless}"],
+                  stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+              self.get_logger().info(
+                  f"Spawning {fixture_name} Fixture..")
+              subprocess.Popen(
+                  ['ros2', 'launch', 'rmf_gym_worlds',
+                   f"{fixture_name}.launch.xml"],
+                  stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False).communicate(timeout=10)
+              break
+            except subprocess.TimeoutExpired:
+              self.rmf_process.terminate()
+              self.rmf_process.wait()
+              continue
 
           if not self.params_config.headless:
             subprocess.Popen(['wmctrl', '-a', 'rviz']).communicate()
