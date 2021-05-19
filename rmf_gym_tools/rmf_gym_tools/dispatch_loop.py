@@ -65,7 +65,7 @@ class TaskRequester:
             self.node.set_parameters([param])
             
     def _get_task_srv_is_available(self):
-        if not self.get_task_srv.wait_for_service(timeout_sec=3.0):
+        if not self.get_task_list_srv.wait_for_service(timeout_sec=3.0):
           self.node.get_logger().error('Task getting service is not available')
           return False
         else:
