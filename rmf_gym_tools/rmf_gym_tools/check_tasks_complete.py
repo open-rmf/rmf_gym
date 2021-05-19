@@ -73,6 +73,25 @@ class AllTasksCompleteCheck:
 
   def main(self):
     time_elapsed = 0
+    while True:
+      # Check that at least one task is issued
+      if not self._get_task_srv_is_available:
+        time.sleep(1)
+        continue
+      if time_elapsed > self.config.task_check_timeout:
+        raise Exception(f"A task was never received.")
+      
+      req_msg = GetTaskList.Request()
+      future = self.get_task_list_srv.call_async(req_msg)
+      rclpy.spin_until_future_complete(
+          self.node, future, timeout_sec=1.0)
+      response = future.result()
+      if response.active_tasks:
+        break
+      else:
+        self.node.get_logger().info(f"Waiting for a task to be issued.")
+        time.sleep(self.config.task_check_period)
+        time_elapsed += self.config.task_check_period
 
     while True:
       time.sleep(self.config.task_check_period)
