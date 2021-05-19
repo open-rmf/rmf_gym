@@ -166,6 +166,7 @@ class GymTestNode(Node):
       self.rmf_process.wait()
 
     self.get_logger().info("Done.")
+    time.sleep(2)
 
 
 def main(argv=sys.argv):
