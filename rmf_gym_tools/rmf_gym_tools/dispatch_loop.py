@@ -63,6 +63,13 @@ class TaskRequester:
             self.node.get_logger().info("Using Sim Time")
             param = Parameter("use_sim_time", Parameter.Type.BOOL, True)
             self.node.set_parameters([param])
+            
+    def _get_task_srv_is_available(self):
+        if not self.get_task_srv.wait_for_service(timeout_sec=3.0):
+          self.node.get_logger().error('Task getting service is not available')
+          return False
+        else:
+          return True
 
     def generate_task_req_msg(self):
         req_msg = SubmitTask.Request()
@@ -119,16 +126,22 @@ class TaskRequester:
         rclpy.spin_once(self.node, timeout_sec=1.0)
 
         for i in range(5):
+            time.sleep(2)
             self.node.get_logger().info("Attempting task submission")
+            
+            if not self._get_task_srv_is_available():
+                self.node.get_logger().error('Task getting service is not available')
+                continue
+                
             req_msg = self.generate_task_req_msg()
             print(f"\nGenerated loop request: \n {req_msg}\n")
             self.node.get_logger().info("Submitting Loop Request")
             success = self.submit_task_msg(req_msg)
+            
             if success:
                 return
             else:
                 continue
-                time.sleep(2)
                         
 
 
