@@ -95,6 +95,8 @@ class AllTasksCompleteCheck:
         break
       else:
         self.node.get_logger().info(f"Waiting for a task to be issued. ({time_elapsed} sec elapsed)")
+        self.node.get_logger().info(f"Active Tasks: {response.activate_tasks}")
+        self.node.get_logger().info(f"Terminated Tasks: {response.terminated_tasks}")
         time.sleep(1)
         time_elapsed += 1
     
@@ -129,6 +131,8 @@ class AllTasksCompleteCheck:
       if response.active_tasks:
         self.node.get_logger().info(
             f'waiting for tasks {[x.task_id for x in response.active_tasks]} to complete. ({time_elapsed} sec elapsed)')
+        self.node.get_logger().info(f"Active Tasks: {response.activate_tasks}")
+        self.node.get_logger().info(f"Terminated Tasks: {response.terminated_tasks}")
       else:
         self.node.get_logger().info(
             f'Tasks completed.')
