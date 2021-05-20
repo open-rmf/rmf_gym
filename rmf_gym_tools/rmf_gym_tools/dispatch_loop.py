@@ -134,7 +134,7 @@ class TaskRequester:
                 continue
                 
             req_msg = self.generate_task_req_msg()
-            print(f"\nGenerated loop request: \n {req_msg}\n")
+            self.node.get_logger().info(f"\nGenerated loop request: \n {req_msg}\n")
             self.node.get_logger().info("Submitting Loop Request")
             success = self.submit_task_msg(req_msg)
             
