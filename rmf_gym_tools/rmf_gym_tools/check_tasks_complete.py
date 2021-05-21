@@ -128,7 +128,7 @@ class AllTasksCompleteCheck:
             f'waiting for tasks {[x.task_id for x in response.active_tasks]} to complete. ({time_elapsed} sec elapsed)')
       else:
         self.node.get_logger().info(f'Tasks completed.')
-        self.node.get_logger().info(f"Response: {response}")
+        self.node.get_logger().info(f"Response: {[f"Task: {task.task_id}  Success: {task.fleet_name != ''}" for task in response.terminated_tasks]}")
         return
       
       time.sleep(self.config.task_check_period)
