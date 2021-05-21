@@ -9,6 +9,8 @@
   <arg name="failover_mode" default="false"/>
   <arg name="no_simulation" default="false"/>
   <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="get_tasks_topic" default="/get_tasks"/>
 
   <node pkg="rmf_gym_tools" exec="run_tests" output="both">
     <param name="config_file" value="$(var config_file)"/>
@@ -18,5 +20,7 @@
     <param name="failover_mode" value="$(var failover_mode)"/>
     <param name="no_simulation" value="$(var no_simulation)"/>
     <param name="headless" value="$(var headless)"/>
+    <param name="debug" value="$(var debug)"/>
+    <param name="get_tasks_topic" value="$(var get_tasks_topic)"/>
   </node>
 </launch>

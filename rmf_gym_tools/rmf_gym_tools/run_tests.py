@@ -35,7 +35,8 @@ class GymTestNodeParams:
   def __init__(self, config_file, test_launch_path,
                use_ignition, gazebo_version,
                use_sim_time, failover_mode,
-               no_simulation, headless):
+               no_simulation, headless,
+               debug, get_tasks_topic):
     self.config_file = config_file
     self.test_launch_path = test_launch_path
     self.use_ignition = use_ignition
@@ -44,11 +45,17 @@ class GymTestNodeParams:
     self.failover_mode = failover_mode
     self.no_smulation = no_simulation
     self.headless = headless
+    self.debug = debug
+    self.get_tasks_topic = get_tasks_topic
 
 
 class GymTestNode(Node):
   def __init__(self):
+    self.rmf_process = None
+    self.test_process = None
+
     super().__init__('gym_testing_node')
+
     self.declare_parameter('config_file')
     self.declare_parameter('test_launch_path')
     self.declare_parameter('use_ignition')
@@ -56,10 +63,8 @@ class GymTestNode(Node):
     self.declare_parameter('failover_mode')
     self.declare_parameter('no_simulation')
     self.declare_parameter('headless')
-    self.rmf_process = None
-    self.test_process = None
-    self.get_task_list_srv = self.create_client(
-            GetTaskList, '/get_tasks')
+    self.declare_parameter('debug')
+    self.declare_parameter('get_tasks_topic')
 
     config_file_path = self.get_parameter(
         'config_file').get_parameter_value().string_value
@@ -76,78 +81,25 @@ class GymTestNode(Node):
         self.get_parameter('use_sim_time').get_parameter_value().bool_value,
         self.get_parameter('failover_mode').get_parameter_value().bool_value,
         self.get_parameter('no_simulation').get_parameter_value().bool_value,
-        self.get_parameter('headless').get_parameter_value().bool_value
+        self.get_parameter('headless').get_parameter_value().bool_value,
+        self.get_parameter('debug').get_parameter_value().bool_value,
+        self.get_parameter(
+            'get_tasks_topic').get_parameter_value().string_value
     )
 
-    ready = self.check_params_config()
+    self.get_task_list_srv = self.create_client(
+        GetTaskList, self.params_config.get_tasks_topic)
 
-    if not ready:
+    self.output_pipe = subprocess.PIPE
+    if self.params_config.debug:
+      self.output_pipe = None
+
+    if not self._check_params_config():
       sys.exit(1)
     else:
       self.get_logger().info("All test files found")
-      
-  def _get_task_srv_is_available(self):
-    if not self.get_task_list_srv.wait_for_service(timeout_sec=3.0):
-      self.get_logger().error('Task getting service is not available')
-      return False
-    else:
-      return True
 
-  def run_tests(self):
-    for world in self.params_config.config_file['worlds']:
-      tests = self.params_config.config_file['worlds'][world]
-      for fixture_name, test_list in tests.items():
-        if test_list[0] == 'all':
-          test_list = fnmatch.filter(os.listdir(
-              f"{self.params_config.test_launch_path}/{world}/tests"), "test_*.launch.xml")
-          test_list = [x.replace('.launch.xml', '') for x in test_list]
-
-        for test_name in test_list:
-          # Sometimes, the process just hangs. So we just time it out
-          for i in range(3):
-            self.get_logger().info(
-                f"\n\nTesting World: {world}\nFixture: {fixture_name}\nTest: {test_name} \n Attempt: {i}")
-            
-            try:
-              self.get_logger().info(
-                  f"Launching {world} World..")
-              subprocess.Popen(['pkill', '-f', 'gz']).communicate()
-              self.rmf_process = subprocess.Popen(
-                  ['ros2', 'launch', 'rmf_gym_worlds',
-                   f"{world}.launch.xml", f"headless:={self.params_config.headless}"],
-                  stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-              self.get_logger().info(
-                  f"Spawning {fixture_name} Fixture..")
-              
-              # Wait for the get_task service to be available, otherwise we might spawn the robot too early
-              while not self._get_task_srv_is_available():
-                self.get_logger().info("Waiting for backend to be ready..")
-                time.sleep(2)
-              
-              subprocess.Popen(
-                  ['ros2', 'launch', 'rmf_gym_worlds',
-                   f"{fixture_name}.launch.xml"],
-                  stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False).communicate(timeout=10)
-              break
-            except subprocess.TimeoutExpired:
-              self.rmf_process.terminate()
-              self.rmf_process.wait()
-              continue
-
-          if not self.params_config.headless:
-            subprocess.Popen(['wmctrl', '-a', 'rviz']).communicate()
-
-          self.get_logger().info(
-              f"Running {test_name} Test..")
-          self.test_process = subprocess.Popen(
-              ['ros2', 'launch', 'rmf_gym_worlds',
-               f"{test_name}.launch.xml",
-               f"use_sim_time:={self.params_config.use_sim_time}"], shell=False).communicate()
-
-          self.reset()
-
-  def check_params_config(self):
+  def _check_params_config(self):
     success = True
     # Check if all necessary files are present
     for world in self.params_config.config_file['worlds']:
@@ -172,30 +124,131 @@ class GymTestNode(Node):
 
       return success
 
+  def _get_task_srv_is_available(self):
+    if not self.get_task_list_srv.wait_for_service(timeout_sec=3.0):
+      self.get_logger().error('Task getting service is not available')
+      return False
+    else:
+      return True
+
+  def run_tests(self):
+    self.get_logger().info("Running Tests.")
+
+    for world in self.params_config.config_file['worlds']:
+      tests = self.params_config.config_file['worlds'][world]
+      for fixture_name, test_list in tests.items():
+        if test_list[0] == 'all':
+          test_list = fnmatch.filter(os.listdir(
+              f"{self.params_config.test_launch_path}/{world}/tests"), "test_*.launch.xml")
+
+          for test_name in test_list:
+            if not self.run_test(world, fixture_name, test_name):
+              self.get_logger().error(
+                  f"FAILED: {world} {fixture_name} {test_name}")
+            else:
+              self.get_logger().error(
+                  f"COMPLETED: {world} {fixture_name} {test_name}")
+            self.reset()
+
+  def run_test(self, world, fixture_name, test_name):
+    self.get_logger().info(
+        f"\n\nTesting World: {world}\nFixture: {fixture_name}\nTest: {test_name}")
+
+    try:
+      self.get_logger().info(f"Launching {world} World..")
+      self.rmf_process = subprocess.Popen(
+          ['ros2', 'launch', 'rmf_gym_worlds',
+           f"{world}.launch.xml", f"headless:={self.params_config.headless}"],
+          stdout=self.output_pipe, stderr=self.output_pipe)
+    except Exception as e:
+      self.get_logger().error(
+          f"ERROR: Encountered an error launching {world} World: {e}")
+      return False
+
+    self.get_logger().info("Checking the RMF Backend is up")
+    max_retries = 5
+    retries = 0
+    while not self._get_task_srv_is_available():
+      if retries < max_retries:
+        self.get_logger().info("Waiting for backend to be ready..")
+        retries += 1
+        time.sleep(2)
+      else:
+        self.get_logger().error("ERROR: RMF Backend is not available")
+        return False
+
+    try:
+      self.get_logger().info("Spawning Fixtures")
+      subprocess.Popen(
+          ['ros2', 'launch', 'rmf_gym_worlds',
+           f"{fixture_name}.launch.xml"],
+          stdout=self.output_pipe,
+          stderr=self.output_pipe).communicate(timeout=10)
+    except subprocess.TimeoutExpired:
+      # Sometimes, gz just hangs. We should just ignore it
+      pass
+    except Exception as e:
+      self.get_logger().error(
+          f"ERROR: Encountered an error spawning {fixture_name} fixture: {e}")
+      return False
+
+    if not self.params_config.headless:
+      subprocess.Popen(['wmctrl', '-a', 'rviz']).communicate()
+
+    try:
+      self.get_logger().info(f"Running {test_name} Test..")
+      self.test_process = subprocess.Popen(
+          ['ros2', 'launch', 'rmf_gym_worlds',
+           f"{test_name}",
+           f"use_sim_time:={self.params_config.use_sim_time}"]).communicate()
+    except Exception as e:
+      self.get_logger().error(
+          f"ERROR: Encountered an error running {test_name} test: {e}")
+      return False
+
+    return True
+
   def reset(self):
-    self.get_logger().info("Terminating test instance..")
+    self.get_logger().info("Terminating Test Instance..")
     if self.rmf_process is not None:
       for child in psutil.Process(self.rmf_process.pid).children(recursive=True):
         child.terminate()
         child.wait()
       self.rmf_process.terminate()
       self.rmf_process.wait()
-      subprocess.Popen(['ros2', 'daemon', 'stop']).communicate()
 
-    self.get_logger().info("Done.")
-    time.sleep(2)
+    subprocess.Popen(
+        ['ros2', 'daemon', 'stop'], stdout=self.output_pipe,
+        stderr=self.output_pipe).communicate()
+    subprocess.Popen(
+        ['pkill', '-f', 'gz'], stdout=self.output_pipe,
+        stderr=self.output_pipe).communicate()
+    subprocess.Popen(
+        ['pkill', '-f', 'gzclient'], stdout=self.output_pipe,
+        stderr=self.output_pipe).communicate()
+    subprocess.Popen(
+        ['pkill', '-f', 'gzserver'], stdout=self.output_pipe,
+        stderr=self.output_pipe).communicate()
+
+    self.get_logger().info("Termination Done.")
+    time.sleep(5)
 
 
 def main(argv=sys.argv):
   rclpy.init()
   try:
     test_node = GymTestNode()
+  except Exception as e:
+    print(f"Something wrong happened with node initialization. {e}")
+
+  try:
     test_node.run_tests()
     test_node.reset()
   except psutil.NoSuchProcess:
     pass
   except Exception as e:
     test_node.get_logger().error(e.__str__())
+
 
 if __name__ == '__main__':
   main(sys.argv)
