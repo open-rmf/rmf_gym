@@ -108,6 +108,7 @@ class TaskRequester:
                     f'and assigned task_id: [{assigned_task_id}]')
                 
                 for i in range(5): # 5 Retries to see successful fleet assignment
+                    time.sleep(2)
                     self.node.get_logger().info("Checking that Task was taken by some fleet..")
                     future = self.get_task_list_srv.call_async(GetTaskList.Request())
                     rclpy.spin_until_future_complete(self.node, future, timeout_sec=1.0)
@@ -115,9 +116,8 @@ class TaskRequester:
                     if any([x.task_id ==  assigned_task_id and x.fleet_name for x in response.active_tasks]):
                         self.node.get_logger().info("Task was successfully assigned.")
                         return True
-                    else:
-                        time.sleep(2)
-                        
+                return False
+                          
         except Exception as e:
             self.node.get_logger().error('Error! Submit Srv failed %r' % (e,))
             return False
