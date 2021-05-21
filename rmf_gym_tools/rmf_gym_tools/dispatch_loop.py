@@ -130,7 +130,7 @@ class TaskRequester:
             
             if not self._get_task_srv_is_available():
                 self.node.get_logger().error('Task getting service is not available')
-            else
+            else:
                 req_msg = self.generate_task_req_msg()
                 self.node.get_logger().info(f"\nGenerated loop request: \n {req_msg}\n")
                 success = self.submit_task_msg(req_msg)           
