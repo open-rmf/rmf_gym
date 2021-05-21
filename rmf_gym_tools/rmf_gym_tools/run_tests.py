@@ -211,12 +211,15 @@ class GymTestNode(Node):
 
 def reset(node):
   node.get_logger().info("Terminating Test Instance..")
-  if node.rmf_process is not None:
-    for child in psutil.Process(node.rmf_process.pid).children(recursive=True):
-      child.terminate()
-      child.wait()
-    node.rmf_process.terminate()
-    node.rmf_process.wait()
+  try:
+    if node.rmf_process is not None:
+      for child in psutil.Process(node.rmf_process.pid).children(recursive=True):
+        child.terminate()
+        child.wait()
+      node.rmf_process.terminate()
+      node.rmf_process.wait()
+  except psutil.NoSuchProcess:
+    pass
 
   subprocess.Popen(
       ['ros2', 'daemon', 'stop'], stdout=node.output_pipe,
@@ -233,8 +236,8 @@ def reset(node):
 
   if os.getenv('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp') == 'rmw_fastrtps_cpp':
     subprocess.Popen(
-        ['fastdds', 'shm', 'clean'], stdout=node.output_pipe,
-        stderr=node.output_pipe).communicate()
+        ['bash', 'fastdds', 'shm', 'clean'], stdout=node.output_pipe,
+        stderr=node.output_pipe, cwd=f"/opt/ros/{os.getenv('ROS_DISTRO')}/bin").communicate()
 
   node.get_logger().info("Termination Done.")
   time.sleep(5)
@@ -250,11 +253,13 @@ def main(argv=sys.argv):
   try:
     test_node.run_tests()
   except psutil.NoSuchProcess:
-    reset(test_node)
+    pass
   except KeyboardInterrupt:
-    reset(test_node)
+    pass
   except Exception as e:
     test_node.get_logger().error(e.__str__())
+  finally:
+    reset(test_node)
 
 
 if __name__ == '__main__':
