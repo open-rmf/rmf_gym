@@ -116,7 +116,7 @@ class TaskRequester:
                         self.node.get_logger().info("Task was successfully assigned.")
                         return True
                     else:
-                        time.sleep(1)
+                        time.sleep(2)
                         
         except Exception as e:
             self.node.get_logger().error('Error! Submit Srv failed %r' % (e,))
