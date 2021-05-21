@@ -126,22 +126,19 @@ class TaskRequester:
         rclpy.spin_once(self.node, timeout_sec=1.0)
 
         for i in range(5):
-            time.sleep(2)
             self.node.get_logger().info("Attempting task submission")
             
             if not self._get_task_srv_is_available():
                 self.node.get_logger().error('Task getting service is not available')
-                continue
-                
-            req_msg = self.generate_task_req_msg()
-            self.node.get_logger().info(f"\nGenerated loop request: \n {req_msg}\n")
-            self.node.get_logger().info("Submitting Loop Request")
-            success = self.submit_task_msg(req_msg)
-            
-            if success:
-                return
-            else:
-                continue
+            else
+                req_msg = self.generate_task_req_msg()
+                self.node.get_logger().info(f"\nGenerated loop request: \n {req_msg}\n")
+                success = self.submit_task_msg(req_msg)           
+                if success:
+                    self.node.get_logger().info("Successful submission of Loop Request")
+                    return
+            time.sleep(2)
+        self.node.get_logger().info("Loop Task Submission unsuccessful.")
                         
 
 
