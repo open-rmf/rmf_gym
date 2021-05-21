@@ -96,8 +96,6 @@ class GymTestNode(Node):
 
     if not self._check_params_config():
       sys.exit(1)
-    else:
-      self.get_logger().info("All test files found")
 
   def _check_params_config(self):
     success = True
@@ -234,14 +232,16 @@ def reset(node):
       ['pkill', '-f', 'gzserver'], stdout=node.output_pipe,
       stderr=node.output_pipe).communicate()
 
+  node.get_logger().info("Termination Done.")
+  node.destroy_node()
+
   if os.getenv('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp') == 'rmw_fastrtps_cpp':
     subprocess.Popen(
         ['bash', 'fastdds', 'shm', 'clean'], stdout=node.output_pipe,
         stderr=node.output_pipe, cwd=f"/opt/ros/{os.getenv('ROS_DISTRO')}/bin").communicate()
 
-  node.get_logger().info("Termination Done.")
-  time.sleep(5)
-
+  time.sleep(4)
+  node.__init__()
 
 def main(argv=sys.argv):
   rclpy.init()
@@ -260,6 +260,8 @@ def main(argv=sys.argv):
     test_node.get_logger().error(e.__str__())
   finally:
     reset(test_node)
+    test_node.destroy_node()
+    rclpy.shutdown()
 
 
 if __name__ == '__main__':
