@@ -251,6 +251,7 @@ def main(argv=sys.argv):
     print(f"Something wrong happened with node initialization. {e}")
 
   try:
+    test_node.reset()
     test_node.run_tests()
   except psutil.NoSuchProcess:
     pass
