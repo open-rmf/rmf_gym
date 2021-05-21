@@ -230,9 +230,11 @@ def reset(node):
   subprocess.Popen(
       ['pkill', '-f', 'gzserver'], stdout=node.output_pipe,
       stderr=node.output_pipe).communicate()
-  subprocess.Popen(
-      ['fastdds', 'shm', 'clean'], stdout=node.output_pipe,
-      stderr=node.output_pipe).communicate()
+
+  if os.getenv('RMW_IMPLEMENTATION', 'rmw_fastrtps_cpp') == 'rmw_fastrtps_cpp':
+    subprocess.Popen(
+        ['fastdds', 'shm', 'clean'], stdout=node.output_pipe,
+        stderr=node.output_pipe).communicate()
 
   node.get_logger().info("Termination Done.")
   time.sleep(5)
