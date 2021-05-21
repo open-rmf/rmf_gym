@@ -148,7 +148,8 @@ class GymTestNode(Node):
             else:
               self.get_logger().error(
                   f"COMPLETED: {world} {fixture_name} {test_name}")
-            self.reset()
+            reset(self)
+    reset(self)
 
   def run_test(self, world, fixture_name, test_name):
     self.get_logger().info(
@@ -208,30 +209,33 @@ class GymTestNode(Node):
 
     return True
 
-  def reset(self):
-    self.get_logger().info("Terminating Test Instance..")
-    if self.rmf_process is not None:
-      for child in psutil.Process(self.rmf_process.pid).children(recursive=True):
-        child.terminate()
-        child.wait()
-      self.rmf_process.terminate()
-      self.rmf_process.wait()
+def reset(node):
+  node.get_logger().info("Terminating Test Instance..")
+  if node.rmf_process is not None:
+    for child in psutil.Process(node.rmf_process.pid).children(recursive=True):
+      child.terminate()
+      child.wait()
+    node.rmf_process.terminate()
+    node.rmf_process.wait()
 
-    subprocess.Popen(
-        ['ros2', 'daemon', 'stop'], stdout=self.output_pipe,
-        stderr=self.output_pipe).communicate()
-    subprocess.Popen(
-        ['pkill', '-f', 'gz'], stdout=self.output_pipe,
-        stderr=self.output_pipe).communicate()
-    subprocess.Popen(
-        ['pkill', '-f', 'gzclient'], stdout=self.output_pipe,
-        stderr=self.output_pipe).communicate()
-    subprocess.Popen(
-        ['pkill', '-f', 'gzserver'], stdout=self.output_pipe,
-        stderr=self.output_pipe).communicate()
+  subprocess.Popen(
+      ['ros2', 'daemon', 'stop'], stdout=node.output_pipe,
+      stderr=node.output_pipe).communicate()
+  subprocess.Popen(
+      ['pkill', '-f', 'gz'], stdout=node.output_pipe,
+      stderr=node.output_pipe).communicate()
+  subprocess.Popen(
+      ['pkill', '-f', 'gzclient'], stdout=node.output_pipe,
+      stderr=node.output_pipe).communicate()
+  subprocess.Popen(
+      ['pkill', '-f', 'gzserver'], stdout=node.output_pipe,
+      stderr=node.output_pipe).communicate()
+  subprocess.Popen(
+      ['fastdds', 'shm', 'clean'], stdout=node.output_pipe,
+      stderr=node.output_pipe).communicate()
 
-    self.get_logger().info("Termination Done.")
-    time.sleep(5)
+  node.get_logger().info("Termination Done.")
+  time.sleep(5)
 
 
 def main(argv=sys.argv):
@@ -243,9 +247,10 @@ def main(argv=sys.argv):
 
   try:
     test_node.run_tests()
-    test_node.reset()
   except psutil.NoSuchProcess:
-    pass
+    reset(test_node)
+  except KeyboardInterrupt:
+    reset(test_node)
   except Exception as e:
     test_node.get_logger().error(e.__str__())
 
