@@ -74,13 +74,13 @@ class AllTasksCompleteCheck:
   def main(self):
     time_elapsed = 0
     while True:
+      if time_elapsed > 10:
+        raise Exception(f"A task was never received.")
+        
       # Check that at least one task is issued
       if not self._get_task_srv_is_available:
         time.sleep(1)
         continue
-        
-      if time_elapsed > 10:
-        raise Exception(f"A task was never received.")
       
       req_msg = GetTaskList.Request()
       future = self.get_task_list_srv.call_async(req_msg)
@@ -93,26 +93,23 @@ class AllTasksCompleteCheck:
         
       if response.active_tasks:
         break
-      else:
-        self.node.get_logger().info(f"Waiting for a task to be issued. ({time_elapsed} sec elapsed)")
-        time.sleep(1)
-        time_elapsed += 1
+        
+      self.node.get_logger().info(f"Waiting for a task to be issued. ({time_elapsed} sec elapsed)")
+      time.sleep(1)
+      time_elapsed += 1
     
     time_elapsed = 0
     while True:
-      time.sleep(self.config.task_check_period)
-      time_elapsed += self.config.task_check_period
+      # If timeout, then raise exception
+      if time_elapsed > self.config.task_check_timeout:
+        raise Exception(
+            f" The failed to complete within the timeout duration of {self.config.task_check_timeout}")
 
       # Check if services are available
       if not self._get_task_srv_is_available:
         # Failed to get service, retry loop
         time.sleep(1)
         continue
-
-      # If timeout, then raise exception
-      if time_elapsed > self.config.task_check_timeout:
-        raise Exception(
-            f" The failed to complete within the timeout duration of {self.config.task_check_timeout}")
 
       req_msg = GetTaskList.Request()
       future = self.get_task_list_srv.call_async(req_msg)
@@ -121,18 +118,21 @@ class AllTasksCompleteCheck:
       response = future.result()
 
       if response is None:
-        raise Exception('/get_task srv call failed')
+        raise Exception('/get_task srv call failed although it is available')
 
-      elif not response.success:
-        raise Exception('Something wrong happened getting tasks')
+      if not response.success:
+        raise Exception(f"Response received but not successful: {response}")
 
       if response.active_tasks:
         self.node.get_logger().info(
             f'waiting for tasks {[x.task_id for x in response.active_tasks]} to complete. ({time_elapsed} sec elapsed)')
       else:
-        self.node.get_logger().info(
-            f'Tasks completed.')
+        self.node.get_logger().info(f'Tasks completed.')
+        self.node.get_logger().info(f"Response: {response}")
         return
+      
+      time.sleep(self.config.task_check_period)
+      time_elapsed += self.config.task_check_period
 
 ###############################################################################
 
