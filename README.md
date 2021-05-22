@@ -11,7 +11,7 @@ This gym means to offer a more hands-on approach to learning RMF, we will make r
 The practical tutorials can be found [here](/docs).
 
 ## rmf_gym_worlds
-The package [`rmf_gym_worlds`](/rmf_gym_worlds) contains many RMF worlds that are optimized for focused simulation testing. There are also tutorials that teach you how to craft your own testing world. They are also standard in size to help hardware in the loop testing.
+The package [`rmf_gym_worlds`](/rmf_gym_worlds) contains many RMF worlds that are optimized for simulation testing. There are also tutorials that teach you how to craft your own testing world. They are also standard in size to help hardware in the loop testing.
 
 ![simple_deconfliction.gif](/docs/gifs/simple_deconfliction.gif)
 
