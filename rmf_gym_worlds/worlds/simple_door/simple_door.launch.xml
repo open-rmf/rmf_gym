@@ -25,20 +25,20 @@
   </include>
 
   <!-- TinyRobot fleet adapter and robot state aggregator needed for the TinyRobot slotcar_plugin -->
-  <group>
-    <let name="fleet_name" value="tinyRobot"/>
-    <include file="$(find-pkg-share rmf_gym_worlds)/adapters/tinyRobot_adapter.launch.xml">
-      <arg name="fleet_name" value="$(var fleet_name)"/>
-      <arg name="use_sim_time" value="$(var use_sim_time)"/>
-      <arg name="nav_graph_file" value="$(find-pkg-share rmf_gym_worlds)/maps/$(var world_name)/nav_graphs/0.yaml" />
-    </include>
-    <include file="$(find-pkg-share rmf_fleet_adapter)/robot_state_aggregator.launch.xml">
-      <arg name="robot_prefix" value="tinyRobot"/>
-      <arg name="fleet_name" value="$(var fleet_name)"/>
-      <arg name="use_sim_time" value="$(var use_sim_time)"/>
-      <arg name="failover_mode" value="$(var failover_mode)"/>
-    </include>
-  </group>
+  <!--<group>-->
+    <!--<let name="fleet_name" value="tinyRobot"/>-->
+    <!--<include file="$(find-pkg-share rmf_gym_worlds)/adapters/tinyRobot_adapter.launch.xml">-->
+      <!--<arg name="fleet_name" value="$(var fleet_name)"/>-->
+      <!--<arg name="use_sim_time" value="$(var use_sim_time)"/>-->
+      <!--<arg name="nav_graph_file" value="$(find-pkg-share rmf_gym_worlds)/maps/$(var world_name)/nav_graphs/0.yaml" />-->
+    <!--</include>-->
+    <!--<include file="$(find-pkg-share rmf_fleet_adapter)/robot_state_aggregator.launch.xml">-->
+      <!--<arg name="robot_prefix" value="tinyRobot"/>-->
+      <!--<arg name="fleet_name" value="$(var fleet_name)"/>-->
+      <!--<arg name="use_sim_time" value="$(var use_sim_time)"/>-->
+      <!--<arg name="failover_mode" value="$(var failover_mode)"/>-->
+    <!--</include>-->
+  <!--</group>-->
 
   <!-- DeliveryRobot fleet adapter and robot state aggregator needed for the DeliveryRobot slotcar_plugin -->
   <group>
@@ -46,7 +46,7 @@
     <include file="$(find-pkg-share rmf_gym_worlds)/adapters/deliveryRobot_adapter.launch.xml">
       <arg name="fleet_name" value="$(var fleet_name)"/>
       <arg name="use_sim_time" value="$(var use_sim_time)"/>
-      <arg name="nav_graph_file" value="$(find-pkg-share rmf_gym_worlds)/maps/$(var world_name)/nav_graphs/1.yaml" />
+      <arg name="nav_graph_file" value="$(find-pkg-share rmf_gym_worlds)/maps/$(var world_name)/nav_graphs/0.yaml" />
     </include>
     <include file="$(find-pkg-share rmf_fleet_adapter)/robot_state_aggregator.launch.xml">
       <arg name="robot_prefix" value="deliveryRobot"/>
