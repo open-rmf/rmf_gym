@@ -1,6 +1,6 @@
 crowd_sim:
   agent_groups:
-    - {agents_name: [DeliveryRobot_3, DeliveryRobot_2, DeliveryRobot_1, DeliveryRobot_4, DeliveryRobot_5], agents_number: 5, group_id: 0, profile_selector: external_agent, state_selector: external_static, x: 0, y: 0}
+    - {agents_name: [deliveryRobot_3, deliveryRobot_2, deliveryRobot_1, deliveryRobot_4, deliveryRobot_5], agents_number: 5, group_id: 0, profile_selector: external_agent, state_selector: external_static, x: 0, y: 0}
   agent_profiles:
     - {ORCA_tau: 1, ORCA_tauObst: 0.4, class: 1, max_accel: 0, max_angle_vel: 0, max_neighbors: 10, max_speed: 0, name: external_agent, neighbor_dist: 5, obstacle_set: 1, pref_speed: 0, r: 0.25}
   enable: 0
@@ -58,11 +58,11 @@ levels:
       - [1541.208, 535.956, 0, ""]
       - [1541.208, 927.924, 0, ""]
       - [1383.456, 539.9160000000001, 0, "", {is_parking_spot: [4, true]}]
-      - [379.692, 539.9160000000001, 0, 0_b, {spawn_robot_name: [1, deliveryRobot_2], spawn_robot_type: [1, DeliveryRobot]}]
+      - [379.692, 539.9160000000001, 0, 0_b, {spawn_robot_name: [1, ""], spawn_robot_type: [1, ""]}]
       - [1383.456, 288.161, 0, "", {is_parking_spot: [4, true]}]
       - [376.895, 288.161, 0, 0_a, {spawn_robot_name: [1, deliveryRobot_1], spawn_robot_type: [1, DeliveryRobot]}]
       - [1383.456, 993.076, 0, "", {is_parking_spot: [4, true]}]
-      - [379.692, 993.076, 0, 0_d, {spawn_robot_name: [1, deliveryRobot_4], spawn_robot_type: [1, DeliveryRobot]}]
+      - [379.692, 993.076, 0, 0_d, {spawn_robot_name: [1, ""], spawn_robot_type: [1, ""]}]
       - [1383.456, 1267.209, 0, "", {is_parking_spot: [4, true]}]
       - [376.895, 1267.209, 0, 0_e, {spawn_robot_name: [1, deliveryRobot_5], spawn_robot_type: [1, DeliveryRobot]}]
     walls:
